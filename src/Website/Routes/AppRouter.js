@@ -67,9 +67,7 @@ export default function AppRouter() {
             default: "#e1e1e1"
           },
           primary:{
-            light: '#757ce8',
             main: '#fff',
-            dark: '#002884',
             contrastText: '#000',
             title: '#000' ,
             secondy: 'hsl(210, 26%, 11%, 0.5)'
@@ -82,9 +80,7 @@ export default function AppRouter() {
             default: "hsl(210, 26%, 11%)"
           },
           primary:{
-            light: '#757ce8',
             main: 'hsl(210, 26%, 11%)',
-            dark: '#002884',
             contrastText: 'hsl(214, 15%, 62%)',
             title: '#fff' ,
             secondy: "hsl(0, 0%, 100%, 0.1)"
