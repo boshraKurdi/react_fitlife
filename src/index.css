@@ -357,27 +357,34 @@ body.dark{
 }
 
 
-.Next , .Prev{
+.swiper-button-next , .swiper-button-prev{
   position: absolute;
+  width: 50px !important;
+  height: 50px !important;
   transform: translateY(-50%);
   top: 50%;
 }
 
-.Next{
-    right: -5%;
+/* .swiper-button-next{
+    right: -5% !important;
 }
-.Prev{
-  left: -5%;
-}
-.arrow{
+.swiper-button-prev{
+  left: -5% !important;
+} */
+.swiper-button-prev::after , .swiper-button-next::after{
   outline: none;
+  font-size: 2.3rem !important;
   border: none;
-  font-size: 4rem !important ;
-  color: var(--coquelicot) ;
-  background: var(--black_10);
-  border-radius: 50%
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--coquelicot) !important ;
+  background: var(--black_10) !important;
+  border-radius: 50% !important
 }
-.arrow:hover{
-  background-color: var(--coquelicot);
-  color: var(--black_10);
+.swiper-button-prev::after:hover , .swiper-button-next:hover::after{
+  background-color: var(--coquelicot) !important;
+  color: var(--black_10) !important;
 }

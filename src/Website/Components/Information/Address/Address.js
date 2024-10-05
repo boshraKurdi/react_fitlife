@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { ActAuthUpdate } from "../../../Redux/Auth/AuthSlice";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
+import { useNavigate } from "react-router-dom";
 export default function Address({ setBox, state, setState, form, setForm }) {
   const dispatch = useDispatch();
+  const nav = useNavigate()
   const { error , loading } = useSelector((state) => state.auth)
   console.log(loading)
   function ChangeSetting() {
@@ -34,9 +36,12 @@ export default function Address({ setBox, state, setState, form, setForm }) {
       flag = false;
     }
     if (!flag) {
-      dispatch(ActAuthUpdate(form)).unwrap().then(()=>{
-        window.location.pathname = "/";
+      const promise = dispatch(ActAuthUpdate(form)).unwrap().then(()=>{
+       nav("/");
       }).catch(()=>{})
+      return () => {
+        promise.abort();
+      }
     }
   }
   return (

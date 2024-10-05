@@ -3,8 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpScema , UseCheckEmail } from '../index'
 import { ActAuthSignUp } from "../Redux/Auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const UseSignUp = () => {
     const dispatch = useDispatch();
+    const nav = useNavigate()
     // call custem hooks
     const { status , enterEmail , checkEmail , ResetValue } = UseCheckEmail();
     const { error , loading , token } = useSelector((state) => state.auth)
@@ -21,9 +23,12 @@ const UseSignUp = () => {
   });
   // submit form sign up
   const onSubmit = async (data) => {
-    dispatch(ActAuthSignUp(data)).unwrap().then(()=>{
-      window.location.pathname = "/information";
+    const promise = dispatch(ActAuthSignUp(data)).unwrap().then(()=>{
+     nav("/information");
     }).catch(()=>{})
+    return () => {
+      promise.abort();
+    }
   }
     // check if email exit 
     async function EmailOnBlurHandeler (e){

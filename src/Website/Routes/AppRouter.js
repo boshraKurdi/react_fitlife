@@ -20,6 +20,15 @@ const router = createBrowserRouter([
     element: <GoogleCallBack />,
   },
   {
+    path: "/",
+    element: <Main />,
+    errorElement: <E404 />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+       {
     element: <RequierBack />,
     children: [
       {
@@ -29,20 +38,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/",
-    element: <Main />,
-    errorElement: <E404 />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      
-      {
-        path: "loading",
-        element: <Loading />,
-      },
       {
         element: <RequierAuth />,
         children: [

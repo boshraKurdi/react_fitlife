@@ -1,6 +1,5 @@
 import "./Plan.css";
 import Content from "./Content/Content";
-import UsePagination from '../../../Hooks/UsePagination';
 export default function Plan() {
   return (
     <section className="section blog" id="blog" aria-label="blog">
@@ -11,7 +10,6 @@ export default function Plan() {
         <ul className="blog-list has-scrollbar">
           <Content />
         </ul>
-        <UsePagination count='3' />
       </div>
     </section>
   );

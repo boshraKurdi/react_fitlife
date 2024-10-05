@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import ActAuthLogin from './Act/ActAuthLogin'
 import ActAuthSignUp from './Act/ActAuthSignUp'
 import ActAuthUpdate from './Act/ActAuthUpdate'
+import ActAuthLogout from './Act/ActAuthLogout'
 
 const initialState = {
   user: {} ,
@@ -75,9 +76,26 @@ export const authSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //logout
+    builder.addCase(ActAuthLogout.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActAuthLogout.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+      state.user = {}
+      state.token = null
+
+    })
+    builder.addCase(ActAuthLogout.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
   },
 })
 // Action creators are generated for each case reducer function
-export { ActAuthSignUp , ActAuthLogin , ActAuthUpdate }
+export { ActAuthSignUp , ActAuthLogin , ActAuthUpdate , ActAuthLogout }
 export const { CleanUp , SetAuth } = authSlice.actions
 export default authSlice.reducer

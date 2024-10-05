@@ -10,16 +10,30 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { ActAuthLogout } from '../../Redux/Auth/AuthSlice';
+import ButtonLoading from '../Loading/ButtonLoading/ButtonLoading';
+import { useNavigate } from 'react-router-dom';
 export default function Profile() {
+  const dispatch = useDispatch();
+  const { loading , error } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const nav = useNavigate()
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  function HandelLogout(){
+    const promise = dispatch(ActAuthLogout()).unwrap().then(()=>{
+      nav('/login')
+      }).catch(()=>{console.log(error)})
+      return () => {
+      promise.abort();
+    }
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -72,30 +86,30 @@ export default function Profile() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <PersonAdd />
           </ListItemIcon>
           Add another account
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <Settings />
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={()=>{
+          HandelLogout()
+          }}>
+          {loading === 'pending' ? <ButtonLoading /> :<ListItemIcon><Logout /></ListItemIcon>}
+          Logout 
         </MenuItem>
       </Menu>
     </React.Fragment>

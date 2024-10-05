@@ -57,23 +57,23 @@ export default function Content() {
     <SkeletonLoading loading={loading} error={error} type="plan">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        pagination={{ el: "", clickable: true }}
-        navigation={{
-          nextEl: ".Next",
-          prevEl: ".Prev",
-          clickable: true,
-        }}
-        effect="coverflow"
-        grabCursor={true}
-        centeredSlides={true}
-        loop={true}
-        slidesPerView={3}
+        navigation
         spaceBetween={50}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 2.5,
+        loop={true}
+        
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+          1440: {
+            slidesPerView: 4,
+          },
         }}
       >
         {newPlans}

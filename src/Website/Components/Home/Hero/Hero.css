@@ -17,6 +17,7 @@
 }
 
 .hero-content {
+  padding-inline: 0;  
   margin-block-end: 90px;
 }
 

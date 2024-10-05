@@ -1,13 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { UPDATE_AUTH } from "../../../../Api/Api";
-const ActAuthUpdate = createAsyncThunk(
-    'Auth/ActAuthUpdate',
+import { LOGOUT } from "../../../../Api/Api";
+const ActAuthLogout = createAsyncThunk(
+    'Auth/ActAuthLogout',
     async (data , thunkAPI) => {
-        const { rejectWithValue , getState , signal } = thunkAPI;
+        const { rejectWithValue , getState , signal} = thunkAPI;
         const { auth } = getState()
+        console.log(auth.token)
         try {
-            const response = await axios.post(`${UPDATE_AUTH}`, data , {
+            const response = await axios.post(`${LOGOUT}` , {
                 signal: signal,
               }, {
                 headers: {
@@ -25,4 +26,4 @@ const ActAuthUpdate = createAsyncThunk(
         }
     },
   )
-  export default ActAuthUpdate
+  export default ActAuthLogout

@@ -1,7 +1,6 @@
 import "./Goal.css";
 import { Goal_1 } from '../../../index'
 import Content from "./Content/Content";
-import UsePagination from "../../../Hooks/UsePagination";
 export default function Goal() {
   return (
     <section
@@ -19,7 +18,6 @@ export default function Goal() {
           <ul className="class-list has-scrollbar">
             <Content />
           </ul>
-        <UsePagination count='15' />
       </div>
     </section>
   );

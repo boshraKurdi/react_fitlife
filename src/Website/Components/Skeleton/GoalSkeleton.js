@@ -12,7 +12,7 @@ export default function GoalSkeleton() {
       );
     });
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' ,  flexWrap: "wrap" }}>
+    <div style={{ display: "flex", alignItems: "center", width:'100%' ,  justifyContent: 'space-between' ,  flexWrap:'nowrap' }}>
       {numberRender}
     </div>
   );

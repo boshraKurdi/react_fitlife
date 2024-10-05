@@ -3,10 +3,12 @@ import axios from "axios";
 import { REGISTER } from "../../../../Api/Api";
 const ActAuthSignUp = createAsyncThunk(
     'Auth/ActAuthSignUp',
-    async (data , thunkAPI) => {
+    async (data , thunkAPI , signal) => {
         const { rejectWithValue } = thunkAPI;
         try {
-            const response = await axios.post(`${REGISTER}`, data);
+            const response = await axios.post(`${REGISTER}`, data , {
+                signal: signal,
+              });
             return response.data   
         } catch (error) {
             if (axios.isAxiosError(error)) {

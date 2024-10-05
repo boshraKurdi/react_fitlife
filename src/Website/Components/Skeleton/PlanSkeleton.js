@@ -12,7 +12,7 @@ export default function PlanSkeleton() {
       );
     });
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' ,  flexWrap: "wrap" }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' , width: '100%' , flexWrap: "nowrap" }}>
       {numberRender}
     </div>
   );
