@@ -52,7 +52,8 @@ export const authSlice = createSlice({
     builder.addCase(ActAuthLogin.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
       state.user = action.payload.user
-      state.token = action.payload.authorisation.token 
+      state.token = action.payload.authorisation.token
+
     })
     builder.addCase(ActAuthLogin.rejected , (state , action) => {
       state.loading = 'failed' 

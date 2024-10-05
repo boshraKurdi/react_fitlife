@@ -15,12 +15,12 @@
   font-size: 3.5rem;
   letter-spacing: 9px;
   font-family: math;
-  color: #0071e2;
+  color: var(--first-color);
 }
 .loader {
     display: block;
     --height-of-loader: 4px;
-    --loader-color: #0071e2;
+    --loader-color: var(--first-color);
     width: 130px;
     height: var(--height-of-loader);
     border-radius: 30px;

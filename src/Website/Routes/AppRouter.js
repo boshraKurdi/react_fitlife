@@ -20,6 +20,16 @@ const router = createBrowserRouter([
     element: <GoogleCallBack />,
   },
   {
+    element: <RequierBack />,
+    children: [
+      {
+        index: true,
+        path: "login",
+        element: <Auth />,
+      },
+    ],
+  },
+  {
     path: "/",
     element: <Main />,
     errorElement: <E404 />,
@@ -28,6 +38,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      
       {
         path: "loading",
         element: <Loading />,
@@ -38,16 +49,6 @@ const router = createBrowserRouter([
           {
             path: "information",
             element: <Information />,
-          },
-        ],
-      },
-      {
-        element: <RequierBack />,
-        children: [
-          {
-            index: true,
-            path: "login",
-            element: <Auth />,
           },
         ],
       },
@@ -68,6 +69,7 @@ export default function AppRouter() {
           },
           primary:{
             main: '#fff',
+            light: 'hsl(210, 26%, 11%)',
             contrastText: '#000',
             title: '#000' ,
             secondy: 'hsl(210, 26%, 11%, 0.5)'
@@ -81,6 +83,7 @@ export default function AppRouter() {
           },
           primary:{
             main: 'hsl(210, 26%, 11%)',
+            light: 'hsl(210, 26%, 11%)',
             contrastText: 'hsl(214, 15%, 62%)',
             title: '#fff' ,
             secondy: "hsl(0, 0%, 100%, 0.1)"
@@ -98,6 +101,7 @@ export default function AppRouter() {
       <Suspense fallback={<Loading />}>
         <RouterProvider router={router} />
       </Suspense>
+
     </ThemeProvider>
     </>
   );

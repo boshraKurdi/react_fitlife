@@ -1,6 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import auth from './Auth/AuthSlice';
 import mode from './Mode/ModeSlice';
+import goal from './Goal/GoalSlice';
+import plan from './Plan/PlanSlice';
 import {
   persistStore,
   persistReducer,
@@ -34,6 +36,8 @@ const modePersistConfig = {
 const rootReducer = combineReducers({
   auth : persistReducer(authPersistConfig , auth),
   mode : persistReducer(modePersistConfig , mode),
+  goal ,
+  plan
 })
  const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

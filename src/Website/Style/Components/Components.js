@@ -3,6 +3,9 @@ const Components = () =>{
     const MyComponentHeroSubtitle = styled("p")(({ theme }) => ({
         backgroundColor: theme.palette.primary.secondy,
       }));
+      const MyComponentHeroSubtitleH3 = styled("h3")(({ theme }) => ({
+        color: theme.palette.primary.light,
+      }));
       const MyComponentHeroSubtitleA = styled("a")(({ theme }) => ({
         backgroundColor: theme.palette.primary.secondy,
       }));
@@ -16,6 +19,6 @@ const Components = () =>{
       const MyComponentTextP = styled("p")(({ theme }) => ({
         color: theme.palette.primary.contrastText,
       }));
-    return { MyComponentHeroSubtitle , MyComponentHeader , MyComponentTitle , MyComponentTextP , MyComponentHeroSubtitleA }  
+    return { MyComponentHeroSubtitleH3 , MyComponentHeroSubtitle , MyComponentHeader , MyComponentTitle , MyComponentTextP , MyComponentHeroSubtitleA }  
 }
 export default Components

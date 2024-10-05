@@ -6,3 +6,5 @@ export const UPDATE_AUTH = 'auth/update';
 export const GOOGLE_CALL_BACK = "auth/google/callback"
 export const LOGOUT = 'auth/logout';
 export const USER = 'auth/user'; 
+export const GOAL_INDEX = "goal/index";
+export const PLAN_INDEX ='plan/index'

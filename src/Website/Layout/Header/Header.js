@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetMode } from "../../Redux/Mode/ModeSlice";
 import Components from "../../Style/Components/Components";
 import { useTheme } from "@mui/material";
+import Profile from "../../Components/Profile/Profile";
 export default function Header() {
   const theme = useTheme()
   const { MyComponentHeader} = Components();
   const dispatch = useDispatch();
+  // change mode 
   const { value } = useSelector((state) => state.mode)
+  const { token } = useSelector((state) => state.auth)
   return (
     <MyComponentHeader className="header active">
       <div className="container">
@@ -37,7 +40,7 @@ export default function Header() {
             </li>
 
             <li>
-              <Link style={{color:theme.palette.primary.title}} to="/#classs" className="navbar-link">
+              <Link style={{color:theme.palette.primary.title}} to="/#class" className="navbar-link">
                 classs
               </Link>
             </li>
@@ -61,11 +64,9 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-
-        <Link to="/login" className="btn btn-secondary">
+        {token ? <Profile /> : <Link to="/login" className="btn btn-secondary">
           Join Now
-        </Link>
-
+        </Link>}
         <button className="nav-open-btn">
           <span className="line"></span>
           <span className="line"></span>

@@ -357,5 +357,27 @@ body.dark{
 }
 
 
+.Next , .Prev{
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+}
 
-
+.Next{
+    right: -5%;
+}
+.Prev{
+  left: -5%;
+}
+.arrow{
+  outline: none;
+  border: none;
+  font-size: 4rem !important ;
+  color: var(--coquelicot) ;
+  background: var(--black_10);
+  border-radius: 50%
+}
+.arrow:hover{
+  background-color: var(--coquelicot);
+  color: var(--black_10);
+}

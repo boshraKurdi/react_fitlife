@@ -9,13 +9,10 @@ import UseSignUp from "../../../Hooks/UseSignUp";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
 
 export default function SignUp({ setBox, state, setState }) {
-  const { EmailOnBlurHandeler , onSubmit , errors , handleSubmit , register , status , loading , error , token } = UseSignUp()
+  const { EmailOnBlurHandeler , onSubmit , errors , handleSubmit , register , status , loading , error } = UseSignUp()
 
   function ChangeSetting() {
     setBox((prev) => !prev);
-  }
-  if (token) {
-    window.location.pathname = '/'
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="login__create" id="login-up">

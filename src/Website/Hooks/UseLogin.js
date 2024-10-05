@@ -18,9 +18,12 @@ const UseLogin = () => {
 });
 // submit form login
 const onSubmit = async (data) => {
-  dispatch(ActAuthLogin(data)).unwrap().then(()=>{
+  const promise = dispatch(ActAuthLogin(data)).unwrap().then(()=>{
     window.location.pathname = "/";
-  }).catch(()=>{})
+    }).catch(()=>{})
+    return () => {
+    promise.abort();
+  }
 }
   return { register , handleSubmit , onSubmit , errors , error , loading , token }
 

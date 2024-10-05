@@ -5,13 +5,10 @@ import GoogleIcon from "@mui/icons-material/Google";
 import UseLogin from "../../../Hooks/UseLogin";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
 export default function Login({ setBox, state, setState }) {
-  const { register , handleSubmit , onSubmit , errors , error , loading , token } = UseLogin();
+  const { register , handleSubmit , onSubmit , errors , error , loading } = UseLogin();
   // change page 
   function ChangeSetting() {
     setBox((prev) => !prev);
-  }
-  if (token) {
-    window.location.pathname = '/'
   }
 
   return (

@@ -40,6 +40,7 @@
 
 .blog-card .card-title {
   transition: var(--transition-1);
+  color: var(--rich-black-fogra-29-1);
 }
 
 .blog-card .card-title:is(:hover, :focus) {
@@ -49,6 +50,7 @@
 .blog-card .card-text {
   font-size: var(--fs-6);
   margin-block: 8px 12px;
+  color: var(--rich-black-fogra-29-1);
 }
 
 .blog-card .btn-link {

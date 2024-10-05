@@ -138,7 +138,7 @@
   
     .container { max-width: 720px; }
   
-    .scrollbar-item { min-width: calc(50% - 12.5px); }
+    .scrollbar-item { min-width: calc(50% - 12.5px);height: 100%; }
   
   
   
