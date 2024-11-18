@@ -1,20 +1,17 @@
-import { lazy, Suspense } from "react";
-import Loading from "../../Components/Loading/Loading";
-const Hero = lazy(() => import("../../Components/Home/Hero/Hero")),
-     About = lazy(()=> import("../../Components/Home/About/About")) ,
-     Goal = lazy(()=> import('../../Components/Home/Goal/Goal')) ,
-     Plan = lazy(()=> import('../../Components/Home/Plan/Plan'))
+import Hero from "../../Components/Home/Hero/Hero";
+import About from "../../Components/Home/About/About" 
+import Goal from '../../Components/Home/Goal/Goal'
+import { useSelector } from "react-redux";
 export default function Home(){
+    const { token } = useSelector((state) => state.auth) 
+    console.log(token)
     return(
-        <Suspense fallback={<Loading />}>
             <main>
             <article>
                 <Hero />
                 <About />
                 <Goal />
-                <Plan />
             </article>
         </main>
-        </Suspense>
     )
 }

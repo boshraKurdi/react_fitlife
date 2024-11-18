@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginScema } from '../index'
-import { ActAuthLogin } from "../Redux/Auth/AuthSlice";
+import { ActAuthLogin } from "../../Redux/Auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { SetOpen } from "../../Redux/Mode/ModeSlice";
 const UseLogin = () => {
   const nav = useNavigate();
      // call dispatch
@@ -20,8 +21,10 @@ const UseLogin = () => {
 });
 // submit form login
 const onSubmit = async (data) => {
+  
   const promise = dispatch(ActAuthLogin(data)).unwrap().then(()=>{
-    nav('/')
+    nav('/user' , {replace: true})
+    dispatch(SetOpen({message:'login successfully!' , type: 'success'}));
     }).catch(()=>{})
     return () => {
     promise.abort();

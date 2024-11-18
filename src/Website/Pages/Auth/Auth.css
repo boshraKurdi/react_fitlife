@@ -94,7 +94,7 @@ img{
   position: absolute;
   height: 25px;
   border-radius: 50%;
-  top: 25%;
+  top: 32%;
   right: 11px;
 }
 .close_check_email{
@@ -144,6 +144,7 @@ img{
   grid-template-columns: max-content 1fr;
   column-gap: .5rem;
   padding:.8rem 1rem;
+  position: relative;
   /* width: 47%; */
   background-color: #FFF;
   margin-top: 1rem;
@@ -200,6 +201,7 @@ img{
 .box_flex{
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -295,17 +297,23 @@ img{
   white-space: nowrap;
   width: 1px;
 }
+.mydict span{
+  padding: 1rem;
+  color: #000;
+  box-shadow: 0 0 0 0.0625em #aaa;
+  cursor: pointer;
+}
 
 .mydict input[type="radio"]:checked + span {
   box-shadow: 0 0 0 0.0625em #0043ed;
   background-color: #dee7ff;
   z-index: 1;
-  color: #0043ed;
+  color: #0043ed !important;
 }
 .mydict label{
   width: 50%;
 }
-label span {
+/* label span {
   display: block;
   cursor: pointer;
   background-color: #fff;
@@ -317,7 +325,7 @@ label span {
   color: #3e4963;
   text-align: center;
   transition: background-color .5s ease;
-}
+} */
 
 label:first-child span {
   border-radius: .375em 0 0 .375em;
@@ -362,7 +370,6 @@ label:last-child span {
   margin: 0 5px;
 }
 .container_button button.back , .next{
-  background-color: var(--coquelicot) !important;
   display: flex;
   align-items: center;
   justify-content: center;

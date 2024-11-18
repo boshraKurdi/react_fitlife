@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react"
-import { baseUrl } from "../../Api/Api";
 
 const UseCheckEmail = () => {
     const [status , setStatus] = useState('idle');
@@ -9,7 +8,7 @@ const UseCheckEmail = () => {
         setEnterEmail(email);
         setStatus('checking');
         try {
-            const res = await axios.get(`${baseUrl}/auth/${email}/checkEmail`)
+            const res = await axios.get(`auth/${email}/checkEmail`)
             if (!res.data.length) {
                 setStatus('av');
             }else{

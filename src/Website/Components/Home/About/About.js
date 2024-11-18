@@ -44,7 +44,7 @@ export default function About() {
         </div>
 
         <div className="about-content">
-          <p className="section-subtitle">About Us</p>
+          <p className="section-subtitle" style={{margin: '0'}}>About Us</p>
 
           <h2 className="h2 section-title">Welcome To Our Fitness Gym</h2>
 

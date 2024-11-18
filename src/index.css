@@ -77,7 +77,11 @@
 
 
 
-
+*:disabled{
+  opacity: 0.5;
+  pointer-events: none;
+  cursor:no-drop;
+}
 *,
 *::before,
 *::after {
@@ -127,6 +131,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 body.light{
   background: var(--bg-light);
@@ -196,7 +201,7 @@ body.dark{
 .h1 {
   /* color:var(--rich-black-fogra-29-1); light */
   /* color: var(--white); dark */
-  font-size: var(--fs-1);
+  font-size: var(--fs-2);
   font-weight: var(--fw-900);
 }
 
@@ -255,23 +260,6 @@ body.dark{
 
 .circle-2 { animation-direction: reverse; }
 
-.hero-subtitle,
-.section-subtitle {
-  font-family: var(--ff-catamaran);
-  font-weight: var(--fw-700);
-  text-transform: uppercase;
-  max-width: max-content;
-}
-
-.section-subtitle {
-  background-color: var(--coquelicot_10);
-  color: var(--coquelicot);
-  padding: 8px 20px;
-  border-radius: var(--radius-8);
-}
-
-.section-title { margin-block: 18px 35px; }
-
 .btn-link {
   --color: var(--white);
 
@@ -300,7 +288,7 @@ body.dark{
   aspect-ratio: var(--width) / var(--height);
   background-color: var(--light-gray);
   overflow: hidden;
-  height: 270px;
+  height: 200px;
 }
 
 .img-cover {
@@ -387,4 +375,8 @@ body.dark{
 .swiper-button-prev::after:hover , .swiper-button-next:hover::after{
   background-color: var(--coquelicot) !important;
   color: var(--black_10) !important;
+}
+.top{
+  margin: 4rem auto 0 auto;
+
 }

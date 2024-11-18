@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpScema , UseCheckEmail } from '../index'
-import { ActAuthSignUp } from "../Redux/Auth/AuthSlice";
+import { ActAuthSignUp } from "../../Redux/Auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const UseSignUp = () => {
     const dispatch = useDispatch();
-    const nav = useNavigate()
+    const nav = useNavigate();
     // call custem hooks
     const { status , enterEmail , checkEmail , ResetValue } = UseCheckEmail();
-    const { error , loading , token } = useSelector((state) => state.auth)
+    const { error , loading , token } = useSelector((state) => state.auth);
     // call SignUpScema
     const {
       register,
@@ -24,18 +24,17 @@ const UseSignUp = () => {
   // submit form sign up
   const onSubmit = async (data) => {
     const promise = dispatch(ActAuthSignUp(data)).unwrap().then(()=>{
-     nav("/information");
+     nav("/information" , {replace: true});
     }).catch(()=>{})
     return () => {
       promise.abort();
     }
   }
-    // check if email exit 
+    // check if email exit
     async function EmailOnBlurHandeler (e){
       await trigger('email')
       const value = e.target.value;
       const { isDirty , invalid } = getFieldState('email')
-      console.log(isDirty , invalid)
       if (isDirty && !invalid && enterEmail !== value) {
         checkEmail(value)
       }

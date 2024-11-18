@@ -12,7 +12,7 @@ import Components from "../../Style/Components/Components";
 export default function Footer() {
   const { MyComponentHeroSubtitleA} = Components();
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div
         className="section footer-top has-bg-image"
         style={{ backgroundImage: `url(${Bg_Image})` }}

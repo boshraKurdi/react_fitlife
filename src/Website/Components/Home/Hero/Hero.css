@@ -1,7 +1,6 @@
 .hero {
   color: var(--cadet-gray);
   text-align: center;
-  padding-block-start: calc(var(--section-padding) + 80px);
   padding-block-end: 0;
   overflow: hidden;
 }
@@ -17,13 +16,15 @@
 }
 
 .hero-content {
-  padding-inline: 0;  
+  padding-inline: 0; 
+  padding-block-start: var(--section-padding); 
   margin-block-end: 90px;
 }
 
 .hero-subtitle {
   background-color: var(--white_10);
   color: var(--white);
+  width: fit-content;
   margin-inline: auto;
   padding: 5px;
   padding-inline-end: 15px;

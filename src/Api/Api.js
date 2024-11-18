@@ -8,3 +8,6 @@ export const LOGOUT = 'auth/logout';
 export const USER = 'auth/user'; 
 export const GOAL_INDEX = "goal/index";
 export const PLAN_INDEX ='plan/index'
+export const MY_GOAL = 'target/index'
+export const MY_PLAN = 'target/plans'
+export const GYM = 'gym/index';

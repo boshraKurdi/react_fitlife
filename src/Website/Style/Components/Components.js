@@ -13,12 +13,18 @@ const Components = () =>{
         color: "#fff",
         backgroundColor: theme.palette.primary.main,
       }));
+      const MyComponentDivHeader = styled("div")(({ theme }) => ({
+        backgroundColor: theme.palette.primary.main,
+      }));
       const MyComponentTitle = styled("h1")(({ theme }) => ({
         color: theme.palette.primary.title,
       }));
       const MyComponentTextP = styled("p")(({ theme }) => ({
         color: theme.palette.primary.contrastText,
       }));
-    return { MyComponentHeroSubtitleH3 , MyComponentHeroSubtitle , MyComponentHeader , MyComponentTitle , MyComponentTextP , MyComponentHeroSubtitleA }  
+      const MyComponentContainerLoader = styled("div")(({ theme }) => ({
+        background: theme.palette.primary.bg,
+      }));
+    return { MyComponentDivHeader , MyComponentContainerLoader , MyComponentHeroSubtitleH3 , MyComponentHeroSubtitle , MyComponentHeader , MyComponentTitle , MyComponentTextP , MyComponentHeroSubtitleA }  
 }
 export default Components

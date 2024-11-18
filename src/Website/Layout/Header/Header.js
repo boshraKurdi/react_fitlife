@@ -4,17 +4,23 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useDispatch, useSelector } from "react-redux";
-import { SetMode } from "../../Redux/Mode/ModeSlice";
+import { SetMode } from "../../../Redux/Mode/ModeSlice";
 import Components from "../../Style/Components/Components";
 import { useTheme } from "@mui/material";
 import Profile from "../../Components/Profile/Profile";
+import { useState } from "react";
 export default function Header() {
+  const [ open , setOpen ] = useState(false)
   const theme = useTheme()
   const { MyComponentHeader} = Components();
   const dispatch = useDispatch();
   // change mode 
   const { value } = useSelector((state) => state.mode)
   const { token } = useSelector((state) => state.auth)
+  function HandelNav(){
+    setOpen(prev => !prev);
+  }
+  const [activeLink, setActiveLink] = useState('home');
   return (
     <MyComponentHeader className="header active">
       <div className="container">
@@ -23,41 +29,40 @@ export default function Header() {
           <span style={{color:theme.palette.primary.title}} className="span">Fitlife</span>
         </a>
 
-        <nav className="navbar">
+        <nav className={open ? (value === 'dark' ? 'navbar open dark' : 'navbar open light') : (value === 'dark'? "navbar dark" : 'navbar light')}>
           <button className="nav-close-btn"></button>
 
           <ul className="navbar-list">
-            <li>
-              <Link style={{color:theme.palette.primary.title}} to="/#home" className="navbar-link active">
+          <li onClick={()=>{setOpen(false)}}>
+              <a href="/#home" onClick={()=>{setActiveLink('home')}} className={activeLink === 'home' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
                 Home
-              </Link>{" "}
+              </a>{" "}
             </li>
 
-            <li>
-              <Link style={{color:theme.palette.primary.title}} to="/#about" className="navbar-link">
+            <li onClick={()=>{setOpen(false)}}>
+              <a href="/#about" onClick={()=>{setActiveLink('about')}} className={activeLink === 'about' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
                 About Us
-              </Link>{" "}
+              </a>{" "}
             </li>
 
-            <li>
-              <Link style={{color:theme.palette.primary.title}} to="/#class" className="navbar-link">
-                classs
-              </Link>
+            <li onClick={()=>{setOpen(false)}}>
+              <a href="/#goal" onClick={()=>{setActiveLink('goal')}} className={activeLink === 'goal' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
+                Goals
+              </a>
             </li>
 
-            <li>
-              <Link style={{color:theme.palette.primary.title}} to="/#blog" className="navbar-link">
-                Blog
-              </Link>
-            </li>
-
-            <li>
-              <Link style={{color:theme.palette.primary.title}} to="/" className="navbar-link">
+            <li onClick={()=>{setOpen(false)}}>
+              <a  href="/#contact" onClick={()=>{setActiveLink('contact')}} className={activeLink === 'contact' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
                 Contact Us
-              </Link>
+              </a>
             </li>
-            <li>
-            <Select value={value} onChange={(event) => dispatch(SetMode(event.target.value))}>
+            {/* <li onClick={()=>{setOpen(false)}}>
+            <Link to="/login" className={`navbar-link ${value} btn-login`}>
+                Login
+              </Link>
+            </li> */}
+            <li onClick={()=>{setOpen(false)}}>
+            <Select style={{display: 'flex' ,width: 'fit-content' , margin: 'auto'}} value={value} onChange={(event) => dispatch(SetMode(event.target.value))}>
               <MenuItem style={{color:theme.palette.primary.title}} value="light">light</MenuItem>
               <MenuItem style={{color:theme.palette.primary.title}} value="dark">dark</MenuItem>
             </Select>
@@ -67,7 +72,7 @@ export default function Header() {
         {token ? <Profile /> : <Link to="/login" className="btn btn-secondary">
           Join Now
         </Link>}
-        <button className="nav-open-btn">
+        <button className="nav-open-btn" onClick={HandelNav}>
           <span className="line"></span>
           <span className="line"></span>
           <span className="line"></span>

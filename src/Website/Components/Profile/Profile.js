@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import { Home } from '@mui/icons-material';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -11,9 +13,10 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActAuthLogout } from '../../Redux/Auth/AuthSlice';
+import { ActAuthLogout } from '../../../Redux/Auth/AuthSlice';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import ButtonLoading from '../Loading/ButtonLoading/ButtonLoading';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 export default function Profile() {
   const dispatch = useDispatch();
   const { loading , error } = useSelector((state) => state.auth);
@@ -25,7 +28,7 @@ export default function Profile() {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
+  }
   function HandelLogout(){
     const promise = dispatch(ActAuthLogout()).unwrap().then(()=>{
       nav('/login')
@@ -87,11 +90,24 @@ export default function Profile() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
-          <Avatar /> Profile
+          <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/user'>
+            <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> My Plans
+          </Link>
+        </MenuItem>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/gym'>
+            <Avatar><FitnessCenterIcon style={{fontSize: '2rem'}} /></Avatar> Gym
+          </Link>
+        </MenuItem>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+          <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/services'>
+            <Avatar><AnnouncementIcon style={{fontSize: '2rem'}} /></Avatar> Services
+          </Link>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
+        
         <Divider />
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <ListItemIcon>

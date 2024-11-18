@@ -7,6 +7,8 @@ export default function Information(){
     const [form, setForm] = useState({
         width: "",
         height: "",
+        lat: '' ,
+        lon: '' ,
         widthError: "",
         heightError: "",
         address: "",

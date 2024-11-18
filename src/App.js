@@ -1,11 +1,12 @@
-import AppRouter from "./Website/Routes/AppRouter";
-import { ToastContainer } from 'react-toastify';
+import Message from './Messages/Message'
+import AppRouter from "./Routes/AppRouter";
+import './Dashboard/style/style.css'
 import "react-toastify/dist/ReactToastify.css"
 function App() {
   return (
     <div className="App">
-      <AppRouter />
-      <ToastContainer position='bottom-right' />      
+      <AppRouter />  
+      <Message /> 
     </div>
   );
 }

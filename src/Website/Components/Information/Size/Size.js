@@ -1,43 +1,9 @@
 import WidthNormalIcon from "@mui/icons-material/WidthNormal";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import HeightIcon from "@mui/icons-material/Height";
+import UseSize from "../../../Hooks/UseSize";
 export default function Size({ setBox, state, setState, form, setForm }) {
-  const regex = /^[0-9]+$/;
-  function ChangeSetting(e) {
-    e.preventDefault();
-    let flag = false;
-    let errors = {};
-    setState({ ...state, loading: false });
-    if (!regex.test(form.width) || !regex.test(form.height)) {
-      if (form.width === "") {
-        errors.widthError = "the width is required";
-      } else if (!regex.test(form.width)) {
-        errors.widthError = "the width must be numbers";
-      }
-      if (form.height === "") {
-        errors.heightError = "the height is required";
-      } else if (!regex.test(form.height)) {
-        errors.heightError = "the height must be numbers";
-      }
-    }
-
-    if (Object.keys(errors).length > 0) {
-      setForm({
-        ...form,
-        ...errors,
-      });
-      flag = true;
-    } else {
-      flag = false;
-    }
-    if (!flag) {
-      setBox((prev) => !prev);
-    }
-  }
-  function HandelInput(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
+  const {ChangeSetting , HandelInput , regex } = UseSize({ setBox, state, setState, form, setForm })
   return (
     <form className="login__create login__create_size" id="login-up">
       <h1 className="login__title">Create Account</h1>

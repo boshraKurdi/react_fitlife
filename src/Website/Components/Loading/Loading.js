@@ -1,9 +1,11 @@
+import Components from '../../Style/Components/Components'
 import './Loading.css'
 export default function Loading(){
+    const { MyComponentContainerLoader } = Components();
     return(
-        <div className="container_loader">
+        <MyComponentContainerLoader className="container_loader">
             <div className='fitlife'>FiLife</div>
             <div className="loader"></div>
-        </div>
+        </MyComponentContainerLoader>
     )
 }

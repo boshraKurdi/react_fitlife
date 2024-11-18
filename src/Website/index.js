@@ -19,13 +19,14 @@ export {default as Footer} from './Layout/Footer/Footer'
 export {default as Main} from './Pages/Main/Main'
 export {default as BuutonLoading} from './Components/Loading/ButtonLoading/ButtonLoading'
 // export redux 
-export {default as ActAuthLogin} from './Redux/Auth/AuthSlice'
-export {default as ActAuhSignUp} from './Redux/Auth/AuthSlice'
+export {default as ActAuthLogin} from '../Redux/Auth/AuthSlice'
+export {default as ActAuhSignUp} from '../Redux/Auth/AuthSlice'
 // export custem hook
 export {default as UseCheckEmail} from './Hooks/UseCheckEmail'
 // export Scema
 export {default as SignUpScema} from './Validation/SignUpScema'
 export {default as LoginScema} from './Validation/LoginScema'
+export {default as PaymentScema} from './Validation/PaymentScema'
 // export images
 export {default as Hero_1} from '../img/image.png'
 export {default as Hero_2} from '../img/h-circle-one.png'
@@ -49,3 +50,5 @@ export {default as Plan_1} from '../img/blog-one.jpg'
 export {default as Plan_2} from '../img/blog-two.jpg'
 export {default as Plan_3} from '../img/blog-three.jpg'
 export {default as Bg_Image} from '../img/hero-bg.png'
+export {default as image_chat_1} from '../img/—Pngtree—fitness fitness equipment fitness equipment_3827338.png'
+export {default as image_chat_2} from '../img/—Pngtree—cat gym fitness workout because_15588985.png'

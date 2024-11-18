@@ -1,0 +1,24 @@
+.loading-wave {
+  display: flex;
+  align-items: flex-end;
+  margin: 10px 0;
+}
+
+.loading-bar {
+  width: 20px;
+  margin: 0 5px;
+  background: var(--coquelicot_10);
+  border-radius: 5px;
+}
+
+.loading-bar:nth-child(1) {
+  height: 60px;
+}
+
+.loading-bar:nth-child(2) {
+    height: 40px;
+}
+
+.loading-bar:nth-child(3) {
+    height: 20px;
+}

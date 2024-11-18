@@ -4,13 +4,8 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import GoogleIcon from "@mui/icons-material/Google";
 import UseLogin from "../../../Hooks/UseLogin";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
-export default function Login({ setBox, state, setState }) {
+export default function Login({ ChangeSetting }) {
   const { register , handleSubmit , onSubmit , errors , error , loading } = UseLogin();
-  // change page 
-  function ChangeSetting() {
-    setBox((prev) => !prev);
-  }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="login__registre" id="login-in">
       <h1 className="login__title">Sign In</h1>
@@ -44,7 +39,7 @@ export default function Login({ setBox, state, setState }) {
           {error}
         </span>
       )}
-      <button className="login__button">{loading === 'pending' ? <ButtonLoading /> : 'Sign In'}</button>
+      <button className="login__button" disabled={(loading === 'pending') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : 'Sign In'}</button>
       <div className="social-message">
         <div className="line"></div>
         <p className="message">Login with social accounts</p>

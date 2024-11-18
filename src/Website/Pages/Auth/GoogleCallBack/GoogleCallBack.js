@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { GOOGLE_CALL_BACK } from "../../../../Api/Api";
 import Loading from "../../../Components/Loading/Loading";
 import { useDispatch } from "react-redux";
-import { SetAuth } from "../../../Redux/Auth/AuthSlice";
+import { SetAuth } from "../../../../Redux/Auth/AuthSlice";
+import { SetOpen } from "../../../../Redux/Mode/ModeSlice";
 export default function GoogleCallBack(){
     const dispatch = useDispatch()
     const location = useLocation()
@@ -13,15 +14,15 @@ export default function GoogleCallBack(){
         async function GoogleCall(){
             try {
                 const res = await axios.get(`/${GOOGLE_CALL_BACK}${location.search}`)
-                dispatch(SetAuth(res.data.access_token))
+                dispatch(SetAuth({token :res.data.access_token , user:res.data.user }))
                 if (res.data.status === 'login') {
-                   nav("/");  
+                   nav("/user");  
+                   dispatch(SetOpen({message:'login successfully!' , type:'success'}));
                 }else{
                    nav("/information");
                 } 
             } catch (error) {
-                console.log(error)     
-                nav('/login')       
+                dispatch({message:error , type:'error'});        
             }
         }
         GoogleCall();

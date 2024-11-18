@@ -1,49 +1,14 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { useDispatch, useSelector } from "react-redux";
-import { ActAuthUpdate } from "../../../Redux/Auth/AuthSlice";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
-import { useNavigate } from "react-router-dom";
+import UseInformation from "../../../Hooks/UseInformation";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
+
 export default function Address({ setBox, state, setState, form, setForm }) {
-  const dispatch = useDispatch();
-  const nav = useNavigate()
-  const { error , loading } = useSelector((state) => state.auth)
-  console.log(loading)
-  function ChangeSetting() {
-    setBox((prev) => !prev);
-  }
-  function HandelInput(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-  async function HandelSignUp(e) {
-    e.preventDefault();
-    let flag = false;
-    let errors = {};
-    setState({ ...state, loading: false });
-
-    if (form.address === "") {
-      errors.addressError = "the address is required";
-    }
-
-    if (Object.keys(errors).length > 0) {
-      setForm({
-        ...form,
-        ...errors,
-      });
-      flag = true;
-    } else {
-      flag = false;
-    }
-    if (!flag) {
-      const promise = dispatch(ActAuthUpdate(form)).unwrap().then(()=>{
-       nav("/");
-      }).catch(()=>{})
-      return () => {
-        promise.abort();
-      }
-    }
-  }
+  const { getLatALon , stats , setStats , error , loading , ChangeSetting , HandelInput , HandelSignUp} = UseInformation({ setBox, state, setState, form, setForm });
   return (
     <form onSubmit={HandelSignUp} className="login__create login__create_address" id="login-up">
       <h1 className="login__title">Create Account</h1>
@@ -57,11 +22,16 @@ export default function Address({ setBox, state, setState, form, setForm }) {
               onChange={(e) => {
                 HandelInput(e);
               }}
+              // onBlur={()=>{getLatALon(form.address)}}
               name="address"
               placeholder="Address"
               className="login__input"
             />
           </div>
+          {stats.loading === 'idle' && <div onClick={()=>{getLatALon(form.address)}}><SearchIcon style={{color:'#000' , cursor:'pointer'}} className="true_check_email" /></div>}
+          {stats.loading === 'pending' && <div class="loader_check_email"></div>}
+          {stats.loading === 'succeeded' && <CheckIcon className="true_check_email" />}
+          {stats.loading === 'failed' && <div onClick={()=>{setStats({...stats , loading:'idle' , error: ''})}}><CloseIcon style={{cursor:'pointer'}} className="close_check_email" /></div>}
           <p
             style={{
               opacity: form.addressError !== "" && form.address === "" ? 1 : 0,
@@ -79,7 +49,7 @@ export default function Address({ setBox, state, setState, form, setForm }) {
         </span>
       )}
       <div className="container_button">
-        <button className="login__button">{loading === 'pending' ? <ButtonLoading /> : 'OK'}</button>
+        <button className="login__button" disabled={(loading === 'pending' || stats.loading !== 'succeeded') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : 'OK'}</button>
         <button onClick={ChangeSetting} className="login__button back">
         Back <KeyboardDoubleArrowRightIcon />
         </button>

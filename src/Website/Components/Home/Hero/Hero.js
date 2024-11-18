@@ -1,6 +1,7 @@
 import "./Hero.css";
 import {Hero_1 , Hero_2 , Hero_3 , Hero_4 , Hero_5 , Bg_Image} from '../../../index'
 import Components from "../../../Style/Components/Components";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 export default function Hero() {
   const { MyComponentHeroSubtitle , MyComponentTitle , MyComponentTextP } = Components();
   return (
@@ -24,16 +25,16 @@ export default function Hero() {
             a faucibus nisi eleifend eu.
           </MyComponentTextP>
 
-          <a href="index" className="btn btn-primary">
+          <button className="btn btn-primary">
             Get Started
-          </a>
+          </button>
         </div>
-
         <div className="hero-banner">
-          <img
+          <LazyLoadImage
             src={Hero_1}
-            width="660"
-            height="753"
+            width={660}
+            height={753}
+            effect="blur"
             alt="hero banner"
             className="w-100"
           />

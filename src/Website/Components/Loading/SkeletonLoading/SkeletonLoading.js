@@ -1,11 +1,17 @@
 import GoalSkeleton from "../../Skeleton/GoalSkeleton";
 import PlanSkeleton from "../../Skeleton/PlanSkeleton";
+import GoalDetailsSkeleton from "../../Skeleton/GoalDetailsSkeleton";
+import ChatSkeleton from "../../Skeleton/ChatSkeleton";
+import HeaderChatSkeleton from "../../Skeleton/HeaderChatSkeleton";
 import LottieFiles from "../LottieLoading/LottieFiles";
 
-export default function SkeletonLoading({loading , error , children , type}){
+export default function SkeletonLoading({loading , error ='' , children , type}){
     const typeLoading = {
         goal: GoalSkeleton ,
-        plan : PlanSkeleton
+        plan : PlanSkeleton ,
+        detailsGoal: GoalDetailsSkeleton ,
+        chat: ChatSkeleton ,
+        headerChat: HeaderChatSkeleton
     }
     const Component = typeLoading[type];
     if (loading === 'pending') {

@@ -9,9 +9,10 @@ const lottieFilesMap = {
     error: error,
     loading: loading
 }
+console.log('LottieFiles empty')
 const LottieFiles = ({type , message}) => {
     return(
-        <div style={{display:"flex" , alignItems:"center" , justifyContent:"center" , margin: 'auto', height:"100vh"}}>
+        <div style={{display:"flex" , alignItems:"center" , justifyContent:"center" , margin: 'auto'}}>
             <div style={{width:"300px" , height:"300px"}}>
                 <Lottie animationData={lottieFilesMap[type]} />
                 {message && <h3 style={{margin: "-15px auto", textAlign: "center" ,fontSize: "2rem"}}>{message}</h3>}
