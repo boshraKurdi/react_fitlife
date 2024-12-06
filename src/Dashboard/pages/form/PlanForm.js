@@ -30,8 +30,10 @@ const PlanForm = () => {
     formData.append("media", values.media);
     dispatch(ActStore(formData)).unwrap().then(() => {
       nav('/dashboard')
-      dispatch(SetOpen("create plan successfully!"));
-    }).catch(()=>{});
+      dispatch(SetOpen({message:"create Plan successfully!" , type:'success'}));
+    }).catch(()=>{
+        dispatch(SetOpen({message:"create Plan faild!" , type:'error'}));
+    });
   };
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];

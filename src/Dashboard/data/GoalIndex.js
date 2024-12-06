@@ -1,5 +1,6 @@
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, Tooltip, Button, useTheme } from "@mui/material";
 import Header from "../components/Header";
+import { tokens } from "../theme";
 import { useDispatch, useSelector } from "react-redux";
 import { memo, useCallback, useEffect } from "react";
 import { ActDestroy, ActIndex } from "../../Redux/Dashboard/Goal/GoalSlice";
@@ -8,7 +9,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import { Link } from "react-router-dom";
 import Table from "../components/Table";
+import AddIcon from "@mui/icons-material/Add";
+import Swal from 'sweetalert2'
 const GoalIndex = memo(() => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(ActIndex());
@@ -19,16 +25,6 @@ const GoalIndex = memo(() => {
     {
       field: "title",
       headerName: "Title",
-      flex: 1,
-    },
-    {
-      field: "description",
-      headerName: "Description",
-      flex: 1,
-    },
-    {
-      field: "calories",
-      headerName: "Calories",
       flex: 1,
     },
     {
@@ -49,34 +45,31 @@ const GoalIndex = memo(() => {
       flex: 1,
       renderCell: (goals) => (
         <strong>
-          <Tooltip title="Delete" arrow placement="top">
+          <Tooltip title="Delete" arrow placement="top" onClick={()=>{HandelDelete(goals.id)}}>
             <IconButton
               variant="contained"
               size="small"
-              onClick={() => {
-                HandelDestroy(goals.id);
-              }}
               style={{
-                border: "1px solid red",
+                background: "red",
                 padding: "5px",
                 borderRadius: "8px",
               }}
             >
-              <DeleteIcon className="delete" />
+              <DeleteIcon sx={{color:'#fff'}} className="delete" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Update" arrow placement="top">
+          <Tooltip title="Update" arrow placement="top" onClick={()=>{window.location.pathname = 'dashboard/goal/update/'+goals.id}}>
             <IconButton
               variant="contained"
               size="small"
               style={{
                 marginLeft: 16,
-                border: "1px solid green",
+                background: "green",
                 padding: "5px",
                 borderRadius: "8px",
               }}
             >
-              <EditIcon className="update" />
+              <EditIcon sx={{color:'#fff'}} className="update" />
             </IconButton>
           </Tooltip>
           <Tooltip title="Open" arrow placement="top">
@@ -85,13 +78,15 @@ const GoalIndex = memo(() => {
               size="small"
               style={{
                 marginLeft: 16,
-                border: "1px solid #aaa",
+                background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
               }}
-              onClick={()=>{window.location.pathname ='/dashboard/DetailsGoal/'+goals.id}}
+              onClick={() => {
+                window.location.pathname = "/dashboard/DetailsGoal/" + goals.id;
+              }}
             >
-              <FolderOpenIcon className="open" />
+              <FolderOpenIcon  sx={{color:'#fff'}} className="open" />
             </IconButton>
           </Tooltip>
         </strong>
@@ -104,12 +99,47 @@ const GoalIndex = memo(() => {
     },
     [dispatch]
   );
+  function HandelDelete(id){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        HandelDestroy(id);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
 
   return (
     <Box m="20px">
-      <Header title="GOAL" subtitle="List of Goal Table" />
-      <Table data={goals} columns={columns}  loading={loading} />
-      
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Header title="GOAL" subtitle="List of Goal Table" />
+        <Link to={"/dashboard/GoalForm"}>
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+          >
+            <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
+            New Goal
+          </Button>
+        </Link>
+      </Box>
+      <Table data={goals} columns={columns} loading={loading} />
     </Box>
   );
 });

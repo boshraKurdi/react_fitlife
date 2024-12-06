@@ -5,10 +5,11 @@ import { DataGrid } from "@mui/x-data-grid";
 export default function Table({data , loading , columns}){
     const theme = useTheme();
     const colors = tokens(theme.palette.mode)
+    const paginationModel = { page: 0, pageSize: 5 };
     return(
         <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="20px 0 0 0"
+        height="61vh"
         sx={{
           boxShadow: `0px 0px 5px ${colors.primary[700]}` ,
           "& .MuiDataGrid-root": {
@@ -29,7 +30,19 @@ export default function Table({data , loading , columns}){
             backgroundColor: colors.primary[400],
           },
           "& .MuiDataGrid-footerContainer": {
-           display: 'none'
+            backgroundColor: `${colors.primary[400]} !important`,
+          fontSize:`2rem !important` ,
+          border: 'none !important'
+
+          },
+          "& .MuiTablePagination-selectLabel":{
+            fontSize:'1.4rem'
+          },
+          "& .MuiTablePagination-displayedRows":{
+            fontSize:'1.4rem !important'
+          },
+          "& .MuiTablePagination-input":{
+            fontSize:'1.4rem !important'
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -40,9 +53,11 @@ export default function Table({data , loading , columns}){
         <DataGrid
           loading={loading === "pending" ? true : false}
           style={{ fontSize: "1.3rem" }}
-          checkboxSelection
           rows={data}
           columns={columns}
+          initialState={{ pagination: { paginationModel } }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
         />
       </Box>
     )

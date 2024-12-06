@@ -1,19 +1,15 @@
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Goal_3 } from "../../../../index"
 import Components from "../../../../Style/Components/Components";
-import { ActStore } from "../../../../../Redux/Chat/ChatSlice";
 export default function Content({coach}){
     const { MyComponentHeroSubtitleH3 } = Components();
-    const dispatch = useDispatch();
-    function HandelChat(){
-      dispatch(ActStore(coach.id))
-    }
     return(
         <li className="scrollbar-item">
       <div className="class-card">
-        <figure className="card-banner img-holder">
+        <figure style={{height:'400px'}} className="card-banner img-holder">
           <img
             src={coach.media && coach.media[0].original_url}
+            style={{objectFit:'cover' , height:"100%"}}
             width="416"
             height="240"
             loading="lazy"
@@ -34,15 +30,15 @@ export default function Content({coach}){
             />
 
             <MyComponentHeroSubtitleH3 className="h3">
-              <a href="index" className="card-title">
+              <Link to={`/services/profileCoach/${coach.id}`} className="card-title">
                 {coach.name}
-              </a>
+              </Link>
             </MyComponentHeroSubtitleH3>
           </div>
 
           <p className="card-text">lorem sfmksdmf dsfkmdsf sdkfmsdkmf sdkfmksd</p>
 
-          <button onClick={HandelChat} style={{background: 'var(--coquelicot)'}} className="btn" >Start Chat</button>
+          {/* <button onClick={HandelChat} style={{background: 'var(--coquelicot)'}} className="btn" >Start Chat</button> */}
         </div>
       </div>
     </li>

@@ -9,7 +9,7 @@ export default function Content({ planLevel }) {
         <img
           src={
             planLevel.plan_levels.plan.media &&
-            planLevel.plan_levels.plan.media[0].original_url
+            planLevel.plan_levels.plan.media[0]?.original_url
           }
           width="416"
           height="240"

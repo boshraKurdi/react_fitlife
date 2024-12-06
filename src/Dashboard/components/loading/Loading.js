@@ -1,5 +1,4 @@
 import { cloneElement } from "react";
-import Alert from '@mui/material/Alert';
 
 
 export default function Loading({ loading, error, children }) {
@@ -15,11 +14,6 @@ export default function Loading({ loading, error, children }) {
         <>
           {loading === "pending" ? (
             cloneButton
-          ) : error ? (
-            <div style={{display:"flex" , flexDirection: 'column' , width: '100%'}}>
-               <Alert sx={{marginBottom: '1rem' , display: 'flex' , alignItems: 'center' , fontSize:'1.5rem'}} variant="filled" severity="error">{error}</Alert>
-              {children}
-            </div>
           ) : (
             children
           )}
@@ -30,9 +24,7 @@ export default function Loading({ loading, error, children }) {
       <>
         {loading === "pending" ? (
           <p>Loading ...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
+        )  : (
           children
         )}
       </>

@@ -80,7 +80,7 @@ export const tokens = (mode) => ({
           400: "#f2f0f0", // manually changed
           500: "#141b2d",
           600: "#1F2A40",
-          700: "#727681",
+          700: "#aaa",
           800: "#a1a4ab",
           900: 'rgba(255, 255, 255,0.5)',
         },

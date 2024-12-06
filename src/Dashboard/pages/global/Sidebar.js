@@ -4,9 +4,6 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
@@ -14,7 +11,11 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -125,14 +126,35 @@ const Sidebar = () => {
             <Item
               title="Goal"
               to="/dashboard/goal"
-              icon={<ContactsOutlinedIcon style={{fontSize: '1.7rem'}} />}
+              icon={<AssignmentIcon style={{fontSize: '1.7rem'}} />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="User"
               to="/dashboard/user"
-              icon={<ReceiptOutlinedIcon style={{fontSize: '1.7rem'}} />}
+              icon={<AssignmentIndIcon style={{fontSize: '1.7rem'}} />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+              <Item
+              title="Plan"
+              to="/dashboard/plan"
+              icon={<AppRegistrationIcon style={{fontSize: '1.7rem'}} />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             <Item
+              title="Gym"
+              to="/dashboard/gym"
+              icon={<FitnessCenterIcon style={{fontSize: '1.7rem'}} />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+              <Item
+              title="Exercise"
+              to="/dashboard/exercise"
+              icon={<SportsVolleyballIcon style={{fontSize: '1.7rem'}} />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -144,20 +166,6 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
-              title="Goal Form"
-              to="/dashboard/GoalForm"
-              icon={<PersonOutlinedIcon style={{fontSize: '1.7rem'}} />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-              <Item
-              title="Plan Form"
-              to="/dashboard/PlanForm"
-              icon={<PersonOutlinedIcon style={{fontSize: '1.7rem'}} />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Item
               title="Calendar"
               to="/dashboard/calendar"

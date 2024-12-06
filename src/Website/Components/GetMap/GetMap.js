@@ -17,7 +17,7 @@ export default function GetMap({ data }) {
       <MapContainer
       center={[data && data.lat, data && data.lon]}
       zoom={15}
-      style={{ height: "400px", width: "75%" , margin:'auto' , zIndex: '1' }}
+      style={{ height: "400px", width: "100%" , margin:'2rem auto' , zIndex: '1' }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

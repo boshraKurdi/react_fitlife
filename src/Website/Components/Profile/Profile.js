@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActAuthLogout } from '../../../Redux/Auth/AuthSlice';
@@ -92,6 +93,11 @@ export default function Profile() {
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/user'>
             <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> My Plans
+          </Link>
+        </MenuItem>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+         <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/food/1'>
+            <Avatar><RestaurantMenuIcon style={{fontSize: '2rem'}} /></Avatar> My Menu
           </Link>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>

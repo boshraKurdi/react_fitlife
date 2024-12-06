@@ -42,15 +42,20 @@ const GoalForm = () => {
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("duration", values.duration);
-    formData.append("PlanLevel", values.PlanLevel);
-    formData.append("calories", values.calories);
+    chipData.forEach(element => {
+      formData.append("PlanLevel[]", element.key);
+    });
+    formData.append("calories_max", values.calories_max);
+    formData.append("calories_min", values.calories_min);
     formData.append("media", values.media);
     dispatch(ActStore(formData))
       .unwrap()
       .then(() => {
         nav("/dashboard");
-        dispatch(SetOpen("create Goal successfully!"));
-      }).catch(()=>{});
+        dispatch(SetOpen({message:"create Goal successfully!" , type:'success'}));
+        }).catch(()=>{
+            dispatch(SetOpen({message:"create Goal faild!" , type:'error'}));
+        });
   };
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
@@ -110,7 +115,7 @@ const GoalForm = () => {
             >
               <TextField
                 fullWidth
-                // variant="filled"
+                variant="filled"
                 type="text"
                 label="Title"
                 onBlur={handleBlur}
@@ -121,7 +126,7 @@ const GoalForm = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" , border:'1px solid #000' },
+                  sx: { fontSize: "1.5rem" },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -162,14 +167,39 @@ const GoalForm = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Duration"
+                label="Calories Min"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.duration}
-                name="duration"
-                error={!!touched.duration && !!errors.duration}
-                helperText={touched.duration && errors.duration}
-                sx={{ gridColumn: "span 4" }}
+                value={values.calories_min}
+                name="calories_min"
+                error={!!touched.calories_min && !!errors.calories_min}
+                helperText={touched.calories_min && errors.calories_min}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: "1.6rem",
+                    color: value === "dark" ? "#fff" : "#000",
+                    "&.Mui-focused": {
+                      color: value === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                }}
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Calories Max"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.calories_max}
+                name="calories_max"
+                error={!!touched.calories_max && !!errors.calories_max}
+                helperText={touched.calories_max && errors.calories_max}
+                sx={{ gridColumn: "span 2" }}
                 InputProps={{
                   sx: { fontSize: "1.5rem" },
                 }}
@@ -187,14 +217,14 @@ const GoalForm = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Calories"
+                label="Duration"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.muscle}
-                name="calories"
-                error={!!touched.calories && !!errors.calories}
-                helperText={touched.calories && errors.calories}
-                sx={{ gridColumn: "span 4" }}
+                value={values.duration}
+                name="duration"
+                error={!!touched.duration && !!errors.duration}
+                helperText={touched.duration && errors.duration}
+                sx={{ gridColumn: "span 2" }}
                 InputProps={{
                   sx: { fontSize: "1.5rem" },
                 }}
@@ -217,7 +247,7 @@ const GoalForm = () => {
                 onChange={handleChange}
                 error={!!touched.muscle && !!errors.muscle}
                 helperText={touched.muscle && errors.muscle}
-                sx={{ gridColumn: "span 4", fontSize: "1.6rem" }}
+                sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
                 MenuProps={MenuProps}
               >
                 {loading === 'pending'
@@ -287,7 +317,7 @@ const GoalForm = () => {
                   color="secondary"
                   variant="contained"
                 >
-                  Create New Goal +
+                  Update New Goal +
                 </Button>
               </Loading>
             </Box>

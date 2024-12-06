@@ -33,7 +33,7 @@ const GoalDetails = () => {
       <div className="product-imgs">
       <div style={{justifyContent:'center' , display:'flex'}} className="img-display">
             <div style={{width:'100%' , height:'400px'}} className="img-showcase">
-              <img style={{borderRadius:'50%' , width:'75%', minWidth:'400px' , objectFit:'contain'}} src={goal.media && goal.media[0].original_url} alt="shoe" />
+              <img style={{borderRadius:'50%' , width:'75%', minWidth:'400px' , objectFit:'contain'}} src={goal.media && goal.media[0]?.original_url} alt="shoe" />
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ const GoalDetails = () => {
               dispatch(SetOpen({message:'Your journey have just started, one mill journey starts with one step 🤩🤩' , type:'success'}));
              }).catch(()=>{})
             ;
-          }} className="btn_start" disabled={(token && goal?.countAll) ? true : false}>Start Goal {loadingStore === 'pending' ? <ButtonLoading/> : <KeyboardDoubleArrowRightIcon />}</button>}
+          }} className="btn_start" disabled={((token && goal?.countAll) || (loadingStore === 'pending')) ? true : false}>Start Goal {loadingStore === 'pending' ? <ButtonLoading/> : <KeyboardDoubleArrowRightIcon />}</button>}
         </div>
       </div>
     </div>

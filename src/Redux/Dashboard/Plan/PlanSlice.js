@@ -4,6 +4,9 @@ import ActGetPlanForGoal from './Act/ActGetPlanForGoal'
 import ActExerciseIndex from './Act/ActExerciseIndex'
 import ActStore from './Act/ActStore'
 import ActShow from './Act/ActShow'
+import ActDestroy from './Act/ActDestroy'
+import ActShowPlan from './Act/ActShowPlan'
+import ActUpdate from './Act/ActUpdate'
 const initialState = {
   plans: [] ,
   exercises: [] ,
@@ -103,10 +106,67 @@ export const planSlice = createSlice({
         state.errorStore = action.payload 
       }
     })
+    //show plan
+    builder.addCase(ActShowPlan.pending , (state) => {
+      state.loadingShow = 'pending' 
+      state.errorStore = null
+    })
+    builder.addCase(ActShowPlan.fulfilled , (state , action) => {
+      state.loadingShow = 'succeeded'
+      state.plan = action.payload
+    })
+    builder.addCase(ActShowPlan.rejected , (state , action) => {
+      state.loadingShow = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.errorStore = action.payload 
+      }
+    })
+    //delete
+    builder.addCase(ActDestroy.pending , (state) => {
+      state.loadingShow = 'pending' 
+      state.errorStore = null
+    })
+    builder.addCase(ActDestroy.fulfilled , (state , action) => {
+      state.loadingShow = 'succeeded'
+      state.plans = state.plans.filter((el) => {
+        if(el.id !== action.payload)
+          return true
+        else
+          return false
+        
+      })
+    })
+    builder.addCase(ActDestroy.rejected , (state , action) => {
+      state.loadingShow = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.errorStore = action.payload 
+      }
+    })
+    //update 
+    builder.addCase(ActUpdate.pending , (state) => {
+      state.loadingStore = 'pending' 
+      state.errorStore = null
+    })
+    builder.addCase(ActUpdate.fulfilled , (state , action) => {
+      state.loadingStore = 'succeeded'
+      state.plans = state.plans.filter((el) => {
+        if(el.id !== action.payload)
+          return true
+        else
+          return false
+        
+      })
+    })
+    builder.addCase(ActUpdate.rejected , (state , action) => {
+      state.loadingStore = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.errorStore = action.payload 
+      }
+    })
    }
    
 })
 // Action creators are generated for each case reducer function
-export { ActIndex , ActGetPlanForGoal , ActExerciseIndex , ActStore , ActShow } 
+export { ActIndex , ActGetPlanForGoal , ActExerciseIndex , ActStore , ActShow , ActDestroy , ActShowPlan , ActUpdate} 
 export const { CleanUp , PlanForGoalCleanUp } = planSlice.actions
 export default planSlice.reducer

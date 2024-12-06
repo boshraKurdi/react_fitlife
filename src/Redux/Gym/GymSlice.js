@@ -4,7 +4,7 @@ import ActShow from './Act/ActShow'
 
 const initialState = {
   gyms: [] ,
-  gym: {} ,
+  gym: {section:[]} ,
   loading: 'idle',
   error:null
 }

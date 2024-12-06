@@ -56,7 +56,7 @@
   
   
   .service {
-    background-color: var(--text-dark);
+    height: 100vh;
     overflow: hidden;
   }
   

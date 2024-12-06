@@ -30,13 +30,6 @@ export default function Footer() {
             </p>
 
             <div className="wrapper">
-              <img
-                src="./assets/images/footer-clock.png"
-                width="34"
-                height="34"
-                loading="lazy"
-                alt="Clock"
-              />
 
               <ul className="footer-brand-list">
                 <li>

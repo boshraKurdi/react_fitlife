@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import ActIndex from './Act/ActIndex'
 import ActGetCoach from './Act/ActGetCoach'
+import ActShow from './Act/ActShow'
 
 const initialState = {
   users: [] ,
@@ -52,9 +53,25 @@ export const userSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //show
+    builder.addCase(ActShow.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActShow.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+      state.user = action.payload
+    })
+    builder.addCase(ActShow.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
    }
+
 })
 // Action creators are generated for each case reducer function
-export { ActIndex , ActGetCoach } 
+export { ActIndex , ActGetCoach , ActShow } 
 export const { CleanUp , GoalCleanUp } = userSlice.actions
 export default userSlice.reducer

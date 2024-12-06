@@ -3,6 +3,7 @@ import ActIndex from './Act/ActIndex'
 import ActShow from './Act/ActShow'
 import ActDestroy from './Act/ActDestroy'
 import ActStore from './Act/ActStore'
+import ActUpdate from './Act/ActUpdate'
 const initialState = {
   goals: [] ,
   goal: {} ,
@@ -50,7 +51,7 @@ export const goalSlice = createSlice({
     })
     builder.addCase(ActShow.fulfilled , (state , action) => {
       state.loadingShow = 'succeeded' 
-      state.goal = action.payload
+      state.goal = action.payload[0]
     })
     builder.addCase(ActShow.rejected , (state , action) => {
       state.loadingShow = 'failed' 
@@ -93,9 +94,23 @@ export const goalSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //update
+    builder.addCase(ActUpdate.pending , (state) => {
+      state.loadingStore = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActUpdate.fulfilled , (state , action) => {
+      state.loadingStore = 'succeeded'
+    })
+    builder.addCase(ActUpdate.rejected , (state , action) => {
+      state.loadingStore = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
    }
 })
 // Action creators are generated for each case reducer function
-export { ActIndex , ActShow , ActDestroy , ActStore } 
+export { ActIndex , ActShow , ActDestroy , ActStore , ActUpdate } 
 export const { CleanUp , GoalCleanUp } = goalSlice.actions
 export default goalSlice.reducer

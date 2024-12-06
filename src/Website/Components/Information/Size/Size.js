@@ -1,6 +1,8 @@
 import WidthNormalIcon from "@mui/icons-material/WidthNormal";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import HeightIcon from "@mui/icons-material/Height";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
 import UseSize from "../../../Hooks/UseSize";
 export default function Size({ setBox, state, setState, form, setForm }) {
   const {ChangeSetting , HandelInput , regex } = UseSize({ setBox, state, setState, form, setForm })
@@ -62,15 +64,73 @@ export default function Size({ setBox, state, setState, form, setForm }) {
             {form.heightError}
           </p>
         </div>
+        <div className="box">
+          <div className={form.ageError !== "" && (form.age === "" || !regex.test(form.age)) ? "inputError login__box" : 'login__box'}>
+            <ManageAccountsIcon style={{color: form.ageError !== "" && (form.age === "" || !regex.test(form.age)) && '#e35858'}} className="bx bx-at login__icon" />
+            <input
+              type="number"
+              name="age"
+              value={form.age}
+              onChange={(e) => {
+                HandelInput(e);
+              }}
+              placeholder="Age"
+              className="login__input"
+            />
+          </div>
+          <p
+            style={{
+              opacity:
+                form.ageError !== "" &&
+                (form.age === "" || !regex.test(form.age))
+                  ? 1
+                  : 0,
+            }}
+            className="error"
+          >
+            {form.ageError}
+          </p>
+        </div>
+        <div className="box">
+          <div className={form.illnessError !== "" && (form.illness === "" || !regex.test(form.illness)) ? "inputError login__box" : 'login__box'}>
+            <AccessibleForwardIcon style={{color: form.illnessError !== "" && (form.illness === "" || !regex.test(form.illness)) && '#e35858'}} className="bx bx-at login__icon" />
+            <input
+              type="text"
+              name="illness"
+              value={form.illness}
+              onChange={(e) => {
+                HandelInput(e);
+              }}
+              placeholder="Illness"
+              className="login__input"
+            />
+          </div>
+          <p
+            style={{
+              opacity:
+                form.illnessError !== "" ? 1
+                  : 0,
+            }}
+            className="error"
+          >
+            {form.ageError}
+          </p>
+        </div>
+
+
         <div className="mydict">
           <div>
             <label>
-              <input type="radio" name="" checked />
-              <span>Women</span>
+              <input type="radio" name="gender" onChange={(e) => {
+                HandelInput(e);
+              }} value={'feminine'} />
+              <span>feminine</span>
             </label>
             <label>
-              <input type="radio" name="radio" />
-              <span>Men</span>
+              <input type="radio" name="gender" onChange={(e) => {
+                HandelInput(e);
+              }} value={'male'} />
+              <span>male</span>
             </label>
           </div>
         </div>

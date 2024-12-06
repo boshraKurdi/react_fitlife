@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { ActIndex, CleanUp } from "../../../../Redux/MyPlan/MyPlanSlice";
 import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 import SwiperComponent from "../../Swiper/SwiperComponent";
-import Heading from "../../Heading/Heading";
 const MyPlan = () => {
   console.log("Myplan component");
   const dispatch = useDispatch();
@@ -25,12 +24,9 @@ const MyPlan = () => {
         {
           <SkeletonLoading loading={loading} error={error} type="plan">
             {plans.length > 0 && (
-              <section className="section blog" id="blog" aria-label="blog">
-                <Heading
-                  title="My Plan"
-                  subTitle={plans.length > 0 && plans[0].plan_levels.plan.type}
-                />
+              <section className=" " id="blog" aria-label="blog">
                 <div className="container" style={{ position: "relative" }}>
+                <h2 style={{margin:'4rem 0' , textAlign:'center' , fontSize:'5rem'}}>{plans.length > 0 && plans[0].plan_levels.plan.type}</h2>
                   <ul className="class-list has-scrollbar">
                     <SwiperComponent data={newPlans} />
                   </ul>

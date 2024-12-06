@@ -1,5 +1,5 @@
 import * as yup from "yup";
-export default function PlanValidation(){
+export default function PlanValidation(children){
 //     const phoneRegExp =
 //   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
@@ -9,14 +9,14 @@ export default function PlanValidation(){
     duration: yup.string().required("required"),
     muscle: yup
     .string().required("required"),
-    media: yup.mixed().required("required")
+    // media: yup.mixed().required("required")
 });
 const initialValues = {
-    title: "",
-    description: "",
-    duration: "",
-    muscle: "",
-    levels: '1' ,
+    title: children ? children.plan.plan.title: '',
+    description: children ? children.plan.plan.description: '',
+    duration: children ? children.plan.plan.duration: '',
+    muscle: children ? children.plan.plan.muscle: '',
+    levels: children ? children.plan.level.id: '1' ,
     media: null
 };
 return {checkoutSchema , initialValues }

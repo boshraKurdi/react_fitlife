@@ -85,21 +85,9 @@ export const chatSlice = createSlice({
           state.error = action.payload 
         }
       })
-       //send message
-      //  builder.addCase(ActSendMessage.pending , (state) => {
-      //   state.loading2 = 'pending' 
-      //   state.error = null
-      // })
-      builder.addCase(ActSendMessage.fulfilled , (state , action) => {
-        // state.loading2 = 'succeeded' 
-        state.messages.push(action.payload)
+      builder.addCase(ActSendMessage.fulfilled , (state , action) => { 
+        state.messages.push(action.payload.message)
       })
-      // builder.addCase(ActSendMessage.rejected , (state , action) => {
-      //   state.loading2 = 'failed' 
-      //   if (action.payload && typeof action.payload === 'string') {
-      //     state.error = action.payload 
-      //   }
-      // })
   },
 })
 // Action creators are generated for each case reducer function

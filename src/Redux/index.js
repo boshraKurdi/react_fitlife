@@ -12,6 +12,10 @@ import chat from './Chat/ChatSlice';
 import exercise from './Exercise/ExerciseSlice';
 import Dgoal from './Dashboard/Goal/GoalSlice';
 import Dplan from './Dashboard/Plan/PlanSlice';
+import Dgym from './Dashboard/Gym/GymSlice';
+import Dsection from './Dashboard/Section/SectionSlice';
+import Dexercise from './Dashboard/Exercise/ExerciseSlice';
+import meal from './Meal/MealSlice';
 
 import {
   persistStore,
@@ -56,7 +60,11 @@ const rootReducer = combineReducers({
   chat ,
   exercise ,
   Dgoal ,
-  Dplan
+  Dplan ,
+  Dgym,
+  Dexercise,
+  Dsection,
+  meal
 })
  const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

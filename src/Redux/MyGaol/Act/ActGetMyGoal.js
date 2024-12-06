@@ -14,7 +14,6 @@ const ActGetMyGoal = createAsyncThunk(
             }});
             return response.data.data   
         } catch (error) {
-            console.log(error)
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   
             }else{

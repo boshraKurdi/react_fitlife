@@ -22,6 +22,13 @@ import ExerciseIndex from "../Dashboard/data/ExerciseIndex";
 import GoalForm from "../Dashboard/pages/form/GoalForm";
 import DetailsPlan from "../Dashboard/pages/details/DetailsPlan";
 import DetailsGoal from "../Dashboard/pages/details/DetailsGoal";
+import GymIndex from "../Dashboard/data/GymIndex";
+import GymForm from "../Dashboard/pages/form/GymForm";
+import Exercise from "../Dashboard/data/Exercise";
+import Plan from "../Dashboard/data/Plan";
+import GoalUpdate from "../Dashboard/pages/update/GoalUpdate";
+import PlanUpdate from "../Dashboard/pages/update/PlanUpdate";
+
 // route website
 // import RequierBack from "../Website/index";
 const regex = /^[0-9]+$/;
@@ -39,6 +46,9 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
   Services = lazy(()=> import('../Website/Pages/Services/Services')),
   Payment = lazy(()=> import('../Website/Pages/Payment/Payment')),
   Gym = lazy(()=> import('../Website/Pages/Gym/Gym')),
+  PlanDetails = lazy(()=> import('../Website/Pages/PlanDetails/PlanDetails')),
+  Food = lazy(()=> import('../Website/Pages/Food/Food')),
+  ProfileCoach = lazy(()=> import('../Website/Pages/ProfileCoach/ProfileCoach')),
   Chat = lazy(()=> import('../Website/Pages/Chat/Chat'));
 const router = createBrowserRouter([
   {
@@ -62,12 +72,32 @@ const router = createBrowserRouter([
             element: <GoalIndex />,
           },
           {
+            path: 'gym' ,
+            element: <GymIndex />,
+          },
+          {
+            path: 'exercise' ,
+            element: <Exercise />,
+          },
+          {
+            path: 'plan' ,
+            element: <Plan />,
+          },
+          {
             path: 'goal/plan/:id',
             element: <PlanIndex />
           },
           {
+            path: 'goal/update/:id',
+            element: <GoalUpdate />
+          },
+          {
             path: 'goal/plan/:id/exercises/:id',
             element: <ExerciseIndex />
+          },
+          {
+            path: 'plan/update/:id',
+            element: <PlanUpdate />
           },
           
           {
@@ -77,6 +107,10 @@ const router = createBrowserRouter([
           {
             path: 'GoalForm' ,
             element: <GoalForm />
+          },
+          {
+            path: 'GymForm' ,
+            element: <GymForm />
           },
           {
             path: 'DetailsPlan/:id' ,
@@ -158,6 +192,32 @@ const router = createBrowserRouter([
           }
       },
       {
+        path: '/services/profileCoach/:id',
+        element:  <Suspense fallback={<Loading />}><ProfileCoach /></Suspense>,
+        loader : ({params}) =>{
+          if (!regex.test(params.id)) {
+            throw new Response("bad request" , {
+              statusText: "coach not found" ,
+              status: 400
+            })
+          }
+          return true;
+        }
+      },
+      {
+        path: 'food/:id',
+        element: <Suspense fallback={<Loading />}><Food /></Suspense>,
+        loader : ({params}) =>{
+          if (!regex.test(params.id)) {
+            throw new Response("bad request" , {
+              statusText: "food not found" ,
+              status: 400
+            })
+          }
+          return true;
+        }
+    },
+      {
         element:  <Suspense fallback={<Loading />}><RequierAuth /></Suspense>,
         children: [
           {
@@ -185,6 +245,19 @@ const router = createBrowserRouter([
               if (!regex.test(params.id)) {
                 throw new Response("bad request" , {
                   statusText: "gym not found" ,
+                  status: 400
+                })
+              }
+              return true;
+            }
+          },
+          {
+            path: 'planDetails/:id' ,
+            element: <Suspense fallback={<Loading />}><PlanDetails /></Suspense>,
+            loader : ({params}) =>{
+              if (!regex.test(params.id)) {
+                throw new Response("bad request" , {
+                  statusText: "plan not found" ,
                   status: 400
                 })
               }

@@ -7,6 +7,9 @@ import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLo
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GetMap from "../../Components/GetMap/GetMap";
 import { ActShow } from "../../../Redux/Gym/GymSlice";
+import '../PlanDetails/PlanDetails.css'
+import Content from './Content/Content';
+import SwiperComponent from '../../Components/Swiper/SwiperComponent';
 export default function GymDetails() {
   const { MyComponentTitle } = Components();
   const dispatch = useDispatch();
@@ -15,7 +18,11 @@ export default function GymDetails() {
   useEffect(() => {
     dispatch(ActShow(id));
   }, [dispatch, id]);
-  console.log(gym)
+  const newData = gym?.section && gym.section?.map((data)=>{
+    return(
+      <Content key={data.id} data={data} />
+    )
+  }) 
   return (
     <SkeletonLoading loading={loading} error={error} type="detailsGoal">
       <div className="card top">
@@ -54,7 +61,31 @@ export default function GymDetails() {
           </div>
         </div>
       </div>
+      <section className="section__container service__container" id="service">
+      <div className="service__header">
+        <div className="service__header__content">
+          <h2 className="section__header">Gym Address</h2>
+          <p>
+          Gym coordinates on the map. You can zoom in and out of the map to determine nearby places on it.
+          </p>
+        </div>
+      </div>
       <GetMap data={gym.location && gym.location} />
+    </section>
+    <section className="section__container service__container" id="service">
+      <div className="service__header">
+        <div className="service__header__content">
+          <h2 className="section__header">Gym Section</h2>
+          <p>
+          Sports sections available in this club
+          </p>
+        </div>
+      </div>
+      <div style={{display:'flex' , alignItems:'center' , justifyContent:'center'}} className="doctors__grid">
+      <SwiperComponent data={newData} />
+      </div>
+      
+    </section>
     </SkeletonLoading>
   );
 }

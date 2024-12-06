@@ -14,6 +14,7 @@ export default function Message() {
 
     dispatch(SetOpen());
   };
+
   const { open , message , type} = useSelector((state) => state.mode);
 
   return (

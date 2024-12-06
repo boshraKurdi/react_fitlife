@@ -11,7 +11,7 @@ const ActShow = createAsyncThunk(
                   Authorization: 'Bearer ' + auth.token
               }
               });
-            return response.data   
+            return response.data[0]   
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   

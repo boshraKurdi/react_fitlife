@@ -26,16 +26,6 @@ const UserIndex = () => {
       flex: 1,
     },
     {
-      field: "width",
-      headerName: "Width",
-      flex: 1,
-    },
-    {
-      field: "height",
-      headerName: "Height",
-      flex: 1,
-    },
-    {
       field: "created_at",
       headerName: "Date",
       flex: 1,
@@ -50,19 +40,19 @@ const UserIndex = () => {
           className="iconButton"
           variant="contained"
           size="small"
-          style={{border: '1px solid green' , padding: '5px' , borderRadius: '8px'  }}
+          style={{background: 'green' , padding: '5px' , borderRadius: '8px'  }}
           tabIndex={params.hasFocus ? 0 : -1}
         >
-         <EditIcon className="update" />
+         <EditIcon sx={{color:'#fff'}} className="update" />
         </IconButton >
         <IconButton
           className="iconButton"
           variant="contained"
           size="small"
-          style={{ marginLeft: 16 , border: '1px solid #aaa' , padding: '5px' , borderRadius: '8px' }}
+          style={{ marginLeft: 16 , background: '#aaa' , padding: '5px' , borderRadius: '8px' }}
           tabIndex={params.hasFocus ? 0 : -1}
         >
-         <FolderOpenIcon className="open" />
+         <FolderOpenIcon sx={{color:'#fff'}} className="open" />
         </IconButton>
       </strong>
       ),

@@ -5,10 +5,10 @@ const ActShow = createAsyncThunk(
     async (id , thunkAPI) => {
         const { rejectWithValue , signal } = thunkAPI;
         try {
-            const response = await axios.get(`dashboard/goal/${id}/show` , {
+            const response = await axios.get(`dashboard/goal/${id}/showGoal` , {
                 signal: signal,
               });
-            return response.data   
+            return response.data.data   
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   

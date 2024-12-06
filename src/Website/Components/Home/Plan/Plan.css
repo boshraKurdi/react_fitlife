@@ -17,7 +17,13 @@
 .blog-card .card-banner img {
   transition: var(--transition-2);
 }
-
+.btn-myplan{
+  background: var(--color-pu) !important;
+    padding: 0.7rem 1rem !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+    font-size: 1.4rem !important;
+}
 .blog-card:is(:hover, :focus) .card-banner img {
   transform: scale(1.1);
 }
