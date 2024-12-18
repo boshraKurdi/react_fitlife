@@ -5,25 +5,23 @@ export default function PlanValidation(children){
 
   const checkoutSchema = yup.object().shape({
     title: yup.string().required("required"),
+    title_ar: yup.string().required("required"),
     description: yup.string().required("required"),
+    description_ar: yup.string().required("required"),
     duration: yup.string().required("required"),
-    muscle: yup
-    .string().required("required"),
-    // media: yup.mixed().required("required")
+    muscle: yup.string().required("required"),
+    muscle_ar: yup.string().required("required"),
 });
 const initialValues = {
-    title: children ? children.plan.plan.title: '',
-    description: children ? children.plan.plan.description: '',
-    duration: children ? children.plan.plan.duration: '',
-    muscle: children ? children.plan.plan.muscle: '',
-    levels: children ? children.plan.level.id: '1' ,
-    media: null
+    title: children ? children.plan.title: '',
+    title_ar: children ? children.plan.title_ar: '',
+    description: children ? children.plan.description: '',
+    description_ar: children ? children.plan.description_ar: '',
+    duration: children ? children.plan.duration: '',
+    muscle: children ? children.plan.muscle: '',
+    muscle_ar: children ? children.plan.muscle_ar: '',
+    levels: '' ,
+    media: ''
 };
 return {checkoutSchema , initialValues }
 }
-// duration: yup.string().email("invalid email").required("required"),
-// muscle: yup
-// .string()
-// .matches(phoneRegExp, "Phone number is not valid")
-// .required("required"),
-// });

@@ -12,9 +12,11 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -145,6 +147,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
              <Item
+              title="Meal"
+              to="/dashboard/meal"
+              icon={<RestaurantMenuIcon style={{fontSize: '1.7rem'}} />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             <Item
               title="Gym"
               to="/dashboard/gym"
               icon={<FitnessCenterIcon style={{fontSize: '1.7rem'}} />}
@@ -155,6 +164,13 @@ const Sidebar = () => {
               title="Exercise"
               to="/dashboard/exercise"
               icon={<SportsVolleyballIcon style={{fontSize: '1.7rem'}} />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             <Item
+              title="Service"
+              to="/dashboard/service"
+              icon={<AttachMoneyIcon style={{fontSize: '1.7rem'}} />}
               selected={selected}
               setSelected={setSelected}
             />

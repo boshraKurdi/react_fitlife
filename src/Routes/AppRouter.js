@@ -28,6 +28,19 @@ import Exercise from "../Dashboard/data/Exercise";
 import Plan from "../Dashboard/data/Plan";
 import GoalUpdate from "../Dashboard/pages/update/GoalUpdate";
 import PlanUpdate from "../Dashboard/pages/update/PlanUpdate";
+import DetailsGym from "../Dashboard/pages/details/DetailsGym";
+import GymUpdate from "../Dashboard/pages/update/GymUpdate";
+import DetailsExercise from "../Dashboard/pages/details/DetailsExercise";
+import ExerciseForm from "../Dashboard/pages/form/ExerciseForm";
+import ExerciseUpdate from "../Dashboard/pages/update/ExerciseUpdate";
+import Meal from "../Dashboard/data/Meal";
+import MealUpdate from "../Dashboard/pages/update/MealUpdate";
+import MealForm from "../Dashboard/pages/form/MealForm";
+import DetailsMeal from "../Dashboard/pages/details/DetailsMeal";
+import ServiceForm from "../Dashboard/pages/form/ServiceForm";
+import ServiceUpdate from "../Dashboard/pages/update/ServiceUpdate";
+import ServiceIndex from "../Dashboard/data/ServiceIndex";
+import DetailsService from "../Dashboard/pages/details/DetailsService";
 
 // route website
 // import RequierBack from "../Website/index";
@@ -49,6 +62,8 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
   PlanDetails = lazy(()=> import('../Website/Pages/PlanDetails/PlanDetails')),
   Food = lazy(()=> import('../Website/Pages/Food/Food')),
   ProfileCoach = lazy(()=> import('../Website/Pages/ProfileCoach/ProfileCoach')),
+  DetailsFood = lazy(()=> import("../Website/Pages/DetailsFood/DetailsFood")),
+  ExerciseDetails= lazy(()=> import("../Website/Pages/ExerciseDetails/ExerciseDetails")),
   Chat = lazy(()=> import('../Website/Pages/Chat/Chat'));
 const router = createBrowserRouter([
   {
@@ -68,6 +83,10 @@ const router = createBrowserRouter([
             element: <UserIndex />
           },
           {
+            path: 'meal' ,
+            element: <Meal />
+          },
+          {
             path: 'goal' ,
             element: <GoalIndex />,
           },
@@ -84,12 +103,20 @@ const router = createBrowserRouter([
             element: <Plan />,
           },
           {
+            path: 'service' ,
+            element: <ServiceIndex />,
+          },
+          {
             path: 'goal/plan/:id',
             element: <PlanIndex />
           },
           {
             path: 'goal/update/:id',
             element: <GoalUpdate />
+          },
+          {
+            path: 'meal/update/:id',
+            element: <MealUpdate />
           },
           {
             path: 'goal/plan/:id/exercises/:id',
@@ -99,25 +126,65 @@ const router = createBrowserRouter([
             path: 'plan/update/:id',
             element: <PlanUpdate />
           },
+          {
+            path: 'exercise/update/:id',
+            element: <ExerciseUpdate />
+          },
+          {
+            path: 'service/update/:id',
+            element: <ServiceUpdate />
+          },
+          {
+            path: 'gym/update/:id',
+            element: <GymUpdate />
+          },
           
           {
             path: 'PlanForm' ,
             element: <PlanForm />
           },
           {
+            path: 'MealForm' ,
+            element: <MealForm />
+          },
+          {
+            path: 'ServiceForm' ,
+            element: <ServiceForm />
+          },
+          {
             path: 'GoalForm' ,
             element: <GoalForm />
+          },
+          {
+            path: 'ExerciseForm' ,
+            element: <ExerciseForm />
           },
           {
             path: 'GymForm' ,
             element: <GymForm />
           },
           {
-            path: 'DetailsPlan/:id' ,
+            path: 'plan/DetailsPlan/:id' ,
             element: <DetailsPlan />
           },
           {
-            path: 'DetailsGoal/:id' ,
+            path: 'service/DetailsService/:id' ,
+            element: <DetailsService />
+          },
+          {
+            path: 'meal/DetailsMeal/:id' ,
+            element: <DetailsMeal />
+          },
+          {
+            path: 'exercise/DetailsExercise/:id' ,
+            element: <DetailsExercise />
+          },
+          {
+            path: 'gym/DetailsGym/:id' ,
+            element: <DetailsGym />
+          },
+          {
+            path: 'goal/DetailsGoal/:id' ,
             element: <DetailsGoal />
           },
           {
@@ -191,6 +258,33 @@ const router = createBrowserRouter([
             return true;
           }
       },
+      {
+        path: 'exerciseDetails/:id',
+        element: <Suspense fallback={<Loading />}><ExerciseDetails /></Suspense>,
+        loader : ({params}) =>{
+          if (!regex.test(params.id)) {
+            throw new Response("bad request" , {
+              statusText: "exercise not found" ,
+              status: 400
+            })
+          }
+          return true;
+        }
+    },
+      {
+        path: 'mealDetails/:id',
+        element: <Suspense fallback={<Loading />}><DetailsFood /></Suspense>,
+        loader : ({params}) =>{
+          if (!regex.test(params.id)) {
+            throw new Response("bad request" , {
+              statusText: "meal not found" ,
+              status: 400
+            })
+          }
+          return true;
+        }
+
+    },
       {
         path: '/services/profileCoach/:id',
         element:  <Suspense fallback={<Loading />}><ProfileCoach /></Suspense>,

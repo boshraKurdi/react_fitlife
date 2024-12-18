@@ -15,7 +15,7 @@ export default function Content({ gym }) {
               className="img-cover"
             />
 
-            <time className="card-meta">{gym.location && gym.location.address}</time>
+            <time className="card-meta">{gym?.address}</time>
           </div>
 
           <div className="card-content">

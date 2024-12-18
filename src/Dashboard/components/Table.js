@@ -31,7 +31,7 @@ export default function Table({data , loading , columns}){
           },
           "& .MuiDataGrid-footerContainer": {
             backgroundColor: `${colors.primary[400]} !important`,
-          fontSize:`2rem !important` ,
+          fontSize:`1.5rem !important` ,
           border: 'none !important'
 
           },

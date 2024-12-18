@@ -6,7 +6,7 @@ import { useCallback, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ActDestroy ,ActIndex } from "../../Redux/Dashboard/Gym/GymSlice";
 import Table from "../components/Table";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,6 +16,7 @@ const GymIndex = () => {
   const colors = tokens(theme.palette.mode);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const nav = useNavigate()
   useEffect(() => {
     dispatch(ActIndex(id));
   }, [dispatch, id]);
@@ -64,7 +65,7 @@ const GymIndex = () => {
               <DeleteIcon sx={{color:'#fff'}} className="delete" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Update" arrow placement="top">
+          <Tooltip title="Update" arrow placement="top" onClick={() => {nav('update/'+gyms.id)}}>
             <IconButton
               variant="contained"
               size="small"
@@ -78,7 +79,7 @@ const GymIndex = () => {
               <EditIcon sx={{color:'#fff'}} className="update" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Open" arrow placement="top">
+          <Tooltip title="Open" arrow placement="top" onClick={() => {nav('DetailsGym/'+gyms.id)}}>
             <IconButton
               variant="contained"
               size="small"

@@ -142,69 +142,13 @@
     position: absolute;
     top: 0;
     left: 0;
+    width: 0px;
     background-color: hsl(294.74deg 16.89% 62.04%);
     border-radius: 20px;
 }
 
-.ui {
-    width: 90%;
-    animation: ui 3s;
-}
 
-@keyframes ui {
-    0% {
-        width: 0%;
-    }
 
-    100% {
-        width: 90%;
-    }
-}
-
-.marketing {
-    width: 80%;
-    animation: marketing 3s;
-}
-
-@keyframes marketing {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 80%;
-    }
-}
-
-.web {
-    width: 75%;
-    animation: web 3s;
-}
-
-@keyframes web {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 75%;
-    }
-}
-
-.seo {
-    width: 65%;
-    animation: seo 3s;
-}
-
-@keyframes seo {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 65%;
-    }
-}
 @media (max-width: 1024px){
     .about_coach{
         flex-direction: column;

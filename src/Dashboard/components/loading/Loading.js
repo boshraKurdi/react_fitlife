@@ -1,7 +1,7 @@
 import { cloneElement } from "react";
 
 
-export default function Loading({ loading, error, children }) {
+export default function Loading({ loading, error, children  , loadingShow}) {
   const typeElement = children.type.render.name;
   const HandelRender = () => {
     if (typeElement === "Button") {
@@ -12,7 +12,7 @@ export default function Loading({ loading, error, children }) {
       );
       return (
         <>
-          {loading === "pending" ? (
+          {( loading === "pending" || loadingShow === 'pending' ) ? (
             cloneButton
           ) : (
             children
@@ -22,7 +22,7 @@ export default function Loading({ loading, error, children }) {
     }
     return (
       <>
-        {loading === "pending" ? (
+        {( loading === "pending" || loadingShow === 'pending' )? (
           <p>Loading ...</p>
         )  : (
           children

@@ -8,7 +8,7 @@ const ActIndex = createAsyncThunk(
         const { auth , myGoal } = getState() 
         const goalsId = myGoal.myGoals.map((el) => (el.targets[0].goal_plan_level.goal_id))
         try {
-            const response = await axios.post(`${MY_PLAN}` , {ids: `${goalsId}`} ,  {
+            const response = await axios.post(`${MY_PLAN}` , {id: `${goalsId}`} ,  {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }

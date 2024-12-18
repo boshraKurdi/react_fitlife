@@ -6,13 +6,14 @@ import { useCallback, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ActDestroy ,ActExerciseIndex } from "../../Redux/Dashboard/Exercise/ExerciseSlice";
 import AddIcon from "@mui/icons-material/Add";
 import Table from "../components/Table";
 import Swal from 'sweetalert2'
 const Exercise = () => {
     const theme = useTheme();
+    const nav = useNavigate()
     const colors = tokens(theme.palette.mode);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Exercise = () => {
               <DeleteIcon sx={{color:'#fff'}} className="delete" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Update" arrow placement="top">
+          <Tooltip title="Update" arrow placement="top" onClick={()=>{nav('update/'+exercises.id)}}>
             <IconButton
               variant="contained"
               size="small"
@@ -62,10 +63,10 @@ const Exercise = () => {
                 borderRadius: "8px",
               }}
             >
-              <EditIcon sx={{color:'#fff'}} className="update" />
+              <EditIcon sx={{color:'#fff'}} className="update"  />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Open" arrow placement="top">
+          <Tooltip title="Open" arrow placement="top" onClick={()=>{nav('DetailsExercise/'+exercises.id)}}>
             <IconButton
               variant="contained"
               size="small"
@@ -113,8 +114,8 @@ const Exercise = () => {
   return (
     <Box m="20px">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="GOAL" subtitle="List of Goal Table" />
-        <Link to={"/dashboard/GoalForm"}>
+        <Header title="EXERCISE" subtitle="List of Exercise Table" />
+        <Link to={"/dashboard/ExerciseForm"}>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],

@@ -20,7 +20,7 @@ export default function SkeletonLoading({loading , error ='' , children , type})
         return <Component />    
     }
     if (loading === 'failed') {
-        return <LottieFiles type='error' message="error network" />
+        return <LottieFiles type='error' message={'error network'}/>
     }
     return(
         <>{children}</>

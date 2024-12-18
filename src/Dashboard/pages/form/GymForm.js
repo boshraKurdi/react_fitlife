@@ -14,16 +14,17 @@ import {
   import GymValidation from "../../validation/GymValidation";
   import { useDispatch, useSelector } from "react-redux";
   import { ActIndex } from "../../../Redux/Dashboard/Section/SectionSlice";
-  import { SetOpen } from "../../../Redux/Mode/ModeSlice";
   import CloudUploadIcon from "@mui/icons-material/CloudUpload";
   import { useEffect, useState } from "react";
   import { ActStore } from "../../../Redux/Dashboard/Gym/GymSlice";
   import { useNavigate } from "react-router-dom";
+  import { useSnackbar } from "notistack";
   import Loading from "../../components/loading/Loading";
   import AddIcon from '@mui/icons-material/Add';
   
   const GymForm = () => {
     const nav = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const { value } = useSelector((state) => state.mode);
     const { loadingStore, error } = useSelector((state) => state.Dgoal);
     const { checkoutSchema, initialValues } = GymValidation();
@@ -55,15 +56,27 @@ import {
         .unwrap()
         .then(() => {
           nav("/dashboard");
-          dispatch(SetOpen({message:"create Gym successfully!" , type:'success'}));
+          enqueueSnackbar(`Update Gym successfully!`, { variant: "success" });
         }).catch(()=>{
-            dispatch(SetOpen({message:"create Gym faild!" , type:'error'}));
+          enqueueSnackbar(`Update Gym faild!`, { variant: "error" });
         });
     };
-    const handleImageChange = (event, setFieldValue) => {
-      const file = event.currentTarget.files[0];
-      setFieldValue("media", file);
-    };
+    const [preview, setPreview] = useState('');
+    
+      const handleImageChange = (event, setFieldValue) => {
+        const file = event.currentTarget.files[0];
+        setFieldValue("image", file);
+    
+        // إنشاء معاينة للصورة
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreview(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+  
     const { sections, loading } = useSelector((state) => state.Dsection);
     useEffect(() => {
       dispatch(ActIndex());
@@ -340,26 +353,26 @@ import {
                     {newData}
                   </Paper>
                 )}
-                <div className="uploadfile" style={{ gridColumn: "span 4" }}>
-                  <label htmlFor="file" class="labelFile">
-                    <span>
-                      <CloudUploadIcon />
-                    </span>
-                    <p>
-                      drag and drop your image here or click to select a image!
-                    </p>
-                  </label>
-                  <input
-                    fullWidth
-                    variant="filled"
-                    id="file"
-                    type="file"
-                    label="media"
-                    onChange={(event) => handleImageChange(event, setFieldValue)}
-                    name="media"
-                    sx={{ gridColumn: "span 4" }}
-                  />
-                </div>
+                 <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
+                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
+                <label htmlFor="file" class="labelFile">
+                  <span>
+                    <CloudUploadIcon />
+                  </span>
+                  <p>
+                    drag and drop your image here or click to select a image!
+                  </p>
+                </label>
+                <input
+                  variant="filled"
+                  id="file"
+                  type="file"
+                  label="media"
+                  onChange={(event) => handleImageChange(event, setFieldValue)}
+                  name="media"
+                  sx={{ gridColumn: "span 4" }}
+                />
+              </div>
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Loading loading={loadingStore} error={error}>

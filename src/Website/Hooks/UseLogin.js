@@ -4,9 +4,10 @@ import { LoginScema } from '../index'
 import { ActAuthLogin } from "../../Redux/Auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { SetOpen } from "../../Redux/Mode/ModeSlice";
+import { useSnackbar } from 'notistack';
 const UseLogin = () => {
   const nav = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
      // call dispatch
   const dispatch = useDispatch();
   const { error , loading , token } = useSelector((state) => state.auth)
@@ -24,8 +25,10 @@ const onSubmit = async (data) => {
   
   const promise = dispatch(ActAuthLogin(data)).unwrap().then(()=>{
     nav('/user' , {replace: true})
-    dispatch(SetOpen({message:'login successfully!' , type: 'success'}));
-    }).catch(()=>{})
+    enqueueSnackbar(`Login successfully!`, { variant: "success" });
+    }).catch(()=>{
+      enqueueSnackbar(`Login Faild!`, { variant: "error" });
+    })
     return () => {
     promise.abort();
   }

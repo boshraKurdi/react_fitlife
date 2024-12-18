@@ -6,15 +6,16 @@ import { useCallback, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ActDestroy ,ActIndex } from "../../Redux/Dashboard/Plan/PlanSlice";
 import AddIcon from "@mui/icons-material/Add";
 import Table from "../components/Table";
 import Swal from 'sweetalert2'
 const Plan = () => {
+    const nav = useNavigate()
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
   useEffect(() => {
     dispatch(ActIndex());
   }, [dispatch]);
@@ -26,21 +27,14 @@ const Plan = () => {
         headerName: "Title",
         flex: 1,
         cellClassName: "name-column--cell",
-        valueGetter: (value, plans) => plans.plan.title,
+        valueGetter: (value, plans) => plans.title,
       },
       {
         field: "duration",
         headerName: "Duration",
         flex: 1,
         cellClassName: "name-column--cell",
-        valueGetter: (value, plans) => plans.plan.duration,
-      },
-      {
-        field: "level",
-        headerName: "Level",
-        flex: 1,
-        cellClassName: "name-column--cell",
-        valueGetter: (value, plans) => plans.level.title,
+        valueGetter: (value, plans) => plans.duration,
       },
     {
       field: "event",
@@ -61,7 +55,7 @@ const Plan = () => {
               <DeleteIcon sx={{color:'#fff'}} className="delete" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Update" arrow placement="top" onClick={()=>{window.location.pathname = 'dashboard/plan/update/'+plans.row.plan.id}} >
+          <Tooltip title="Update" arrow placement="top" onClick={()=>{nav('update/'+plans.id)}} >
             <IconButton
               variant="contained"
               size="small"
@@ -86,7 +80,7 @@ const Plan = () => {
                 borderRadius: "8px",
               }}
             >
-              <FolderOpenIcon sx={{color:'#fff'}} className="open" />
+              <FolderOpenIcon sx={{color:'#fff'}} className="open" onClick={() => {nav('DetailsPlan/'+plans.id)}}/>
             </IconButton>
           </Tooltip>
         </strong>

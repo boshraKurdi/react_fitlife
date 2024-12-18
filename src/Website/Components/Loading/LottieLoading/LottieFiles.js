@@ -13,9 +13,9 @@ console.log('LottieFiles empty')
 const LottieFiles = ({type , message}) => {
     return(
         <div style={{display:"flex" , alignItems:"center" , justifyContent:"center" , margin: 'auto'}}>
-            <div style={{width:"300px" , height:"300px"}}>
+            <div style={{width:"250px" , height:"250px"}}>
                 <Lottie animationData={lottieFilesMap[type]} />
-                {message && <h3 style={{margin: "-15px auto", textAlign: "center" ,fontSize: "2rem"}}>{message}</h3>}
+                {message && <h3 style={{margin: "-15px auto", textAlign: "center" ,fontSize: "1.5rem"}}>{message}</h3>}
             </div>
         </div>
     )

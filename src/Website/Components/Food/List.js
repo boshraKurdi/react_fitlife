@@ -1,9 +1,12 @@
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 export default function List({ chipData, setChipData, meals }) {
   const { enqueueSnackbar } = useSnackbar();
+  const nav = useNavigate()
   const newDta =
-    meals &&
-    meals[0]?.meal.map((data) => {
+    meals ?
+    meals[0].meal ?
+    meals[0].meal.map((data) => {
       return (
         <div key={data.id} className="detail-card">
           <img
@@ -13,7 +16,7 @@ export default function List({ chipData, setChipData, meals }) {
           />
           <div className="detail-desc">
             <div className="detail-name">
-              <h4>{data?.title}</h4>
+              <h4 onClick={()=>{nav('/mealDetails/'+data?.id)}}>{data?.title}</h4>
               <p className="detail-sub">{data?.description}</p>
               <p className="price">{data.calories + " calories"}</p>
             </div>
@@ -29,7 +32,6 @@ export default function List({ chipData, setChipData, meals }) {
                   img: data.media[0].original_url,
                 },
               ]);
-              // dispatch(SetOpen({message:'add to order successfully!' , type: 'success'}));
               enqueueSnackbar(`add ${data?.title} successfully!`, { variant: 'success'});
             }}
             className="add_to_order"
@@ -38,7 +40,7 @@ export default function List({ chipData, setChipData, meals }) {
           </button>
         </div>
       );
-    });
+    }):'' : '';
   return (
     <div className="main-detail">
       <h2 className="main-title-bottom">choose Order</h2>

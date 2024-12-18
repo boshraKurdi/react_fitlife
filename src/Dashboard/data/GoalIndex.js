@@ -7,11 +7,12 @@ import { ActDestroy, ActIndex } from "../../Redux/Dashboard/Goal/GoalSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Table from "../components/Table";
 import AddIcon from "@mui/icons-material/Add";
 import Swal from 'sweetalert2'
 const GoalIndex = memo(() => {
+  const nav = useNavigate()
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -58,7 +59,7 @@ const GoalIndex = memo(() => {
               <DeleteIcon sx={{color:'#fff'}} className="delete" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Update" arrow placement="top" onClick={()=>{window.location.pathname = 'dashboard/goal/update/'+goals.id}}>
+          <Tooltip title="Update" arrow placement="top" onClick={()=>{nav('update/'+goals.id)}}>
             <IconButton
               variant="contained"
               size="small"
@@ -72,7 +73,7 @@ const GoalIndex = memo(() => {
               <EditIcon sx={{color:'#fff'}} className="update" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Open" arrow placement="top">
+          <Tooltip title="Open" arrow placement="top" onClick={() => {nav('DetailsGoal/'+goals.id)}}>
             <IconButton
               variant="contained"
               size="small"
@@ -81,9 +82,6 @@ const GoalIndex = memo(() => {
                 background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
-              }}
-              onClick={() => {
-                window.location.pathname = "/dashboard/DetailsGoal/" + goals.id;
               }}
             >
               <FolderOpenIcon  sx={{color:'#fff'}} className="open" />

@@ -55,7 +55,11 @@ export default function GymDetails() {
               </li>
               <li>
                 <CheckCircleIcon />
-                address: <span>{gym.location && gym.location.address}</span>
+                price: <span>{gym.price}</span>
+              </li>
+              <li>
+                <CheckCircleIcon />
+                address: <span>{gym.address}</span>
               </li>
             </ul>
           </div>
@@ -70,7 +74,7 @@ export default function GymDetails() {
           </p>
         </div>
       </div>
-      <GetMap data={gym.location && gym.location} />
+      <GetMap data={gym && gym} />
     </section>
     <section className="section__container service__container" id="service">
       <div className="service__header">

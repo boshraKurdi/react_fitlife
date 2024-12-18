@@ -1,25 +1,52 @@
-import { Box, Button, TextField, Select, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  Paper,
+  ListItem,
+  Chip,
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import PlanValidation from "../../validation/PlanValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { ActStore } from "../../../Redux/Dashboard/Plan/PlanSlice";
-import { SetOpen } from "../../../Redux/Mode/ModeSlice";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import Loading from "../../components/loading/Loading";
-// import { useEffect, useState } from "react";
-// import { ActIndex } from "../../../Redux/Exercise/ExerciseSlice";
-// import { useTheme } from "@emotion/react";
+import { useState } from "react";
+
 
 const PlanForm = () => {
   const nav = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const { value } = useSelector((state) => state.mode);
-  const { loadingStore , error } = useSelector((state) => state.Dplan)
+  const { loadingStore, error } = useSelector((state) => state.Dplan);
   const { checkoutSchema, initialValues } = PlanValidation();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
+  const [chipData, setChipData] = useState([]);
+
+  const handleDelete = (chipToDelete) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete.key)
+    );
+  };
+  const newData = chipData.map((data) => {
+    return (
+      <ListItem sx={{ width: "fit-content" }} key={data.key}>
+        <Chip
+          sx={{ fontSize: "1.5rem" }}
+          label={data.label}
+          onDelete={handleDelete(data)}
+        />
+      </ListItem>
+    );
+  });
   const handleFormSubmit = (values) => {
     const formData = new FormData();
     formData.append("title", values.title);
@@ -28,17 +55,33 @@ const PlanForm = () => {
     formData.append("levels", values.levels);
     formData.append("muscle", values.muscle);
     formData.append("media", values.media);
-    dispatch(ActStore(formData)).unwrap().then(() => {
-      nav('/dashboard')
-      dispatch(SetOpen({message:"create Plan successfully!" , type:'success'}));
-    }).catch(()=>{
-        dispatch(SetOpen({message:"create Plan faild!" , type:'error'}));
-    });
+    dispatch(ActStore(formData))
+      .unwrap()
+      .then(() => {
+        nav("/dashboard");
+        enqueueSnackbar(`Update Plan successfully!`, { variant: "success" });
+        
+      })
+      .catch(() => {
+        enqueueSnackbar(`Update Plan faild!`, { variant: "error" });
+      });
   };
-  const handleImageChange = (event, setFieldValue) => {
-    const file = event.currentTarget.files[0];
-    setFieldValue("media", file);
-  };
+  const [preview, setPreview] = useState('');
+    
+      const handleImageChange = (event, setFieldValue) => {
+        const file = event.currentTarget.files[0];
+        setFieldValue("image", file);
+    
+        // إنشاء معاينة للصورة
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreview(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+  
   // const { myExercise } = useSelector((state) => state.exercise)
   // useEffect(()=>{
   //   dispatch(ActIndex())
@@ -97,7 +140,6 @@ const PlanForm = () => {
               }}
             >
               <TextField
-                fullWidth
                 variant="filled"
                 type="text"
                 label="Title"
@@ -122,7 +164,6 @@ const PlanForm = () => {
                 }}
               />
               <TextField
-                fullWidth
                 variant="filled"
                 type="text"
                 label="Description"
@@ -147,7 +188,6 @@ const PlanForm = () => {
                 }}
               />
               <TextField
-                fullWidth
                 variant="filled"
                 type="text"
                 label="Duration"
@@ -172,7 +212,6 @@ const PlanForm = () => {
                 }}
               />
               <TextField
-                fullWidth
                 variant="filled"
                 type="text"
                 label="Muscle"
@@ -197,7 +236,6 @@ const PlanForm = () => {
                 }}
               />
               <Select
-                fullWidth
                 name="levels"
                 value={values.levels}
                 label={"levels"}
@@ -208,17 +246,61 @@ const PlanForm = () => {
                 helperText={touched.muscle && errors.muscle}
                 sx={{ gridColumn: "span 4", fontSize: "1.6rem" }}
               >
-                <MenuItem sx={{ fontSize: "1.5rem" }} value={"1"}>
+                <MenuItem
+                  onClick={() => {
+                    setChipData((prevChipData) => [
+                      ...prevChipData,
+                      { key: 0, label: "weak" },
+                    ]);
+                  }}
+                  sx={{ fontSize: "1.5rem" }}
+                  value={"1"}
+                >
                   weak
                 </MenuItem>
-                <MenuItem sx={{ fontSize: "1.5rem" }} value={"2"}>
+                <MenuItem
+                  onClick={() => {
+                    setChipData((prevChipData) => [
+                      ...prevChipData,
+                      { key: 1, label: "middle" },
+                    ]);
+                  }}
+                  sx={{ fontSize: "1.5rem" }}
+                  value={"2"}
+                >
                   middle
                 </MenuItem>
-                <MenuItem sx={{ fontSize: "1.5rem" }} value={"3"}>
+                <MenuItem
+                  onClick={() => {
+                    setChipData((prevChipData) => [
+                      ...prevChipData,
+                      { key: 2, label: "strong" },
+                    ]);
+                  }}
+                  sx={{ fontSize: "1.5rem" }}
+                  value={"3"}
+                >
                   strong
                 </MenuItem>
               </Select>
-              <div className="uploadfile" style={{ gridColumn: "span 4" }}>
+              {newData.length > 0 && (
+                <Paper
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    listStyle: "none",
+                    gridColumn: "span 4",
+                    p: 0.5,
+                    m: 0,
+                  }}
+                  component="ul"
+                >
+                  {newData}
+                </Paper>
+              )}
+                <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
+                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
                 <label htmlFor="file" class="labelFile">
                   <span>
                     <CloudUploadIcon />
@@ -228,7 +310,6 @@ const PlanForm = () => {
                   </p>
                 </label>
                 <input
-                  fullWidth
                   variant="filled"
                   id="file"
                   type="file"
@@ -238,53 +319,18 @@ const PlanForm = () => {
                   sx={{ gridColumn: "span 4" }}
                 />
               </div>
-
-              {/* <Select
-                fullWidth
-                name="levels"
-                value={values.levels}
-                variant="filled"
-                onChange={handleChange}
-                error={!!touched.muscle && !!errors.muscle}
-                helperText={touched.muscle && errors.muscle}
-                sx={{ gridColumn: "span 4" }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {myExercise.map((e)=>{
-                    return(
-                        <MenuItem onClick={()=>{setChipData(prevChipData => [...prevChipData,{ key: e.id, label: e.title }])}} key={e.id} value={e.id}>{e.title}</MenuItem>
-                    )
-                })}
-              </Select> */}
-              {/* <Paper
-                fullWidth
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  listStyle: "none",
-                  gridColumn: "span 4",
-                  p: 0.5,
-                  m: 0,
-                }}
-                component="ul"
-              >
-                {newData}
-              </Paper> */}
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-            <Loading loading={loadingStore} error={error}>
-              <Button
-                className={value === "dark" ? "newR dark" : "newR light"}
-                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                type="submit"
-                color="secondary"
-                variant="contained"
-              >
-              Create New Plan +
-              </Button>
+              <Loading loading={loadingStore} error={error}>
+                <Button
+                  className={value === "dark" ? "newR dark" : "newR light"}
+                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
+                >
+                  Create New Plan +
+                </Button>
               </Loading>
             </Box>
           </Form>

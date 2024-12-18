@@ -8,21 +8,23 @@ import {
   Chip,
   styled,
 } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import { Form, Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import GoalValidation from "../../validation/GoalValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { ActIndex } from "../../../Redux/Dashboard/Plan/PlanSlice";
-import { SetOpen } from "../../../Redux/Mode/ModeSlice";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useEffect, useState } from "react";
 import { ActStore } from "../../../Redux/Dashboard/Goal/GoalSlice";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import Loading from "../../components/loading/Loading";
 
 const GoalForm = () => {
   const nav = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const { value } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dgoal);
   const { checkoutSchema, initialValues } = GoalValidation();
@@ -40,7 +42,9 @@ const GoalForm = () => {
   const handleFormSubmit = (values) => {
     const formData = new FormData();
     formData.append("title", values.title);
+    formData.append("title_ar", values.title_ar);
     formData.append("description", values.description);
+    formData.append("description_ar", values.description_ar);
     formData.append("duration", values.duration);
     chipData.forEach(element => {
       formData.append("PlanLevel[]", element.key);
@@ -52,15 +56,27 @@ const GoalForm = () => {
       .unwrap()
       .then(() => {
         nav("/dashboard");
-        dispatch(SetOpen({message:"create Goal successfully!" , type:'success'}));
+        enqueueSnackbar(`Update Goal successfully!`, { variant: "success" });
         }).catch(()=>{
-            dispatch(SetOpen({message:"create Goal faild!" , type:'error'}));
+          enqueueSnackbar(`Update Goal faild!`, { variant: "error" });
         });
   };
-  const handleImageChange = (event, setFieldValue) => {
-    const file = event.currentTarget.files[0];
-    setFieldValue("media", file);
-  };
+  const [preview, setPreview] = useState('');
+    
+      const handleImageChange = (event, setFieldValue) => {
+        const file = event.currentTarget.files[0];
+        setFieldValue("image", file);
+    
+        // إنشاء معاينة للصورة
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreview(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+  
   const { plans, loading } = useSelector((state) => state.Dplan);
   useEffect(() => {
     dispatch(ActIndex());
@@ -114,7 +130,6 @@ const GoalForm = () => {
               }}
             >
               <TextField
-                fullWidth
                 variant="filled"
                 type="text"
                 label="Title"
@@ -138,8 +153,33 @@ const GoalForm = () => {
                   },
                 }}
               />
+               <TextField
+              
+                variant="filled"
+                type="text"
+                label="Title AR"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.title_ar}
+                name="title_ar"
+                error={!!touched.title_ar && !!errors.title_ar}
+                helperText={touched.title_ar && errors.title_ar}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: "1.6rem",
+                    color: value === "dark" ? "#fff" : "#000",
+                    "&.Mui-focused": {
+                      color: value === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                }}
+              />
               <TextField
-                fullWidth
+              
                 variant="filled"
                 type="text"
                 label="Description"
@@ -163,8 +203,33 @@ const GoalForm = () => {
                   },
                 }}
               />
+               <TextField
+              
+                variant="filled"
+                type="text"
+                label="Description AR"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.description_ar}
+                name="description_ar"
+                error={!!touched.description_ar && !!errors.description_ar}
+                helperText={touched.description_ar && errors.description_ar}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: "1.6rem",
+                    color: value === "dark" ? "#fff" : "#000",
+                    "&.Mui-focused": {
+                      color: value === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                }}
+              />
               <TextField
-                fullWidth
+              
                 variant="filled"
                 type="text"
                 label="Calories Min"
@@ -189,7 +254,7 @@ const GoalForm = () => {
                 }}
               />
                <TextField
-                fullWidth
+              
                 variant="filled"
                 type="text"
                 label="Calories Max"
@@ -214,7 +279,7 @@ const GoalForm = () => {
                 }}
               />
               <TextField
-                fullWidth
+              
                 variant="filled"
                 type="text"
                 label="Duration"
@@ -240,7 +305,7 @@ const GoalForm = () => {
               />
 
               <Select
-                fullWidth
+              
                 name="PlanLevel"
                 value={values.levels}
                 variant="filled"
@@ -271,8 +336,7 @@ const GoalForm = () => {
                     })}
               </Select>
               {newData.length > 0 && (
-                <Paper
-                  fullWidth
+                <Paper            
                   sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -287,7 +351,8 @@ const GoalForm = () => {
                   {newData}
                 </Paper>
               )}
-              <div className="uploadfile" style={{ gridColumn: "span 4" }}>
+               <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
+                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
                 <label htmlFor="file" class="labelFile">
                   <span>
                     <CloudUploadIcon />
@@ -297,7 +362,6 @@ const GoalForm = () => {
                   </p>
                 </label>
                 <input
-                  fullWidth
                   variant="filled"
                   id="file"
                   type="file"
@@ -317,7 +381,7 @@ const GoalForm = () => {
                   color="secondary"
                   variant="contained"
                 >
-                  Update New Goal +
+                  Create New Goal <AddIcon sx={{ml:'1rem'}}/>
                 </Button>
               </Loading>
             </Box>

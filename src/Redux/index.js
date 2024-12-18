@@ -16,6 +16,10 @@ import Dgym from './Dashboard/Gym/GymSlice';
 import Dsection from './Dashboard/Section/SectionSlice';
 import Dexercise from './Dashboard/Exercise/ExerciseSlice';
 import meal from './Meal/MealSlice';
+import Dcategory from './Dashboard/Category/CategorySlice';
+import Dmeal from './Dashboard/Meal/MealSlice';
+import target from './Target/TargetSlice';
+import Dservice from './Dashboard/Service/ServiceSlice';
 
 import {
   persistStore,
@@ -64,7 +68,11 @@ const rootReducer = combineReducers({
   Dgym,
   Dexercise,
   Dsection,
-  meal
+  meal ,
+  Dmeal ,
+  Dcategory ,
+  Dservice ,
+  target
 })
  const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

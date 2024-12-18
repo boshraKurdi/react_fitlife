@@ -145,6 +145,9 @@
   .why__grid span.dark{
     background: var(--fc-button-hover-border-color);
   }
+  .why__grid .exed{
+    cursor: pointer;
+  }
   .why__grid span.light{
     background: #fff; 
   }

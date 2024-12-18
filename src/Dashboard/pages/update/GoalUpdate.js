@@ -17,14 +17,18 @@ const GoalUpdate = () => {
     handleImageChange,
     handleFormSubmit,
     loadingStore,
+    loadingShow,
     error,
     checkoutSchema,
     initialValues,
+    preview
   } = UseUpdateGoal();
+  
   return (
     <Box m="20px">
       <Header title="UPDATE GOAL" subtitle="Update a Goal" />
       <Formik
+        enableReinitialize={true}
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
@@ -51,6 +55,7 @@ const GoalUpdate = () => {
                 variant="filled"
                 type="text"
                 label="Title"
+                disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title}
@@ -71,16 +76,36 @@ const GoalUpdate = () => {
                   },
                 }}
               />
-               <TextField
-               sx={{display:'none'}}
-                type="hidden"
-                name="id"
-                value={values.id}
+                <TextField
+                variant="filled"
+                type="text"
+                label="Title AR"
+                disabled={loadingShow === "pending" ? true : false}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.title_ar}
+                name="title_ar"
+                error={!!touched.title_ar && !!errors.title_ar}
+                helperText={touched.title_ar && errors.title_ar}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: "1.6rem",
+                    color: value === "dark" ? "#fff" : "#000",
+                    "&.Mui-focused": {
+                      color: value === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                }}
               />
               <TextField
                 variant="filled"
                 type="text"
                 label="Description"
+                disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description}
@@ -101,10 +126,36 @@ const GoalUpdate = () => {
                   },
                 }}
               />
+               <TextField
+                variant="filled"
+                type="text"
+                label="Description AR"
+                disabled={loadingShow === "pending" ? true : false}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.description_ar}
+                name="description_ar"
+                error={!!touched.description_ar && !!errors.description_ar}
+                helperText={touched.description_ar && errors.description_ar}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: "1.6rem",
+                    color: value === "dark" ? "#fff" : "#000",
+                    "&.Mui-focused": {
+                      color: value === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                }}
+              />
               <TextField
                 variant="filled"
                 type="text"
                 label="Calories Min"
+                disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.calories_min}
@@ -129,6 +180,7 @@ const GoalUpdate = () => {
                 variant="filled"
                 type="text"
                 label="Calories Max"
+                disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.calories_max}
@@ -153,6 +205,7 @@ const GoalUpdate = () => {
                 variant="filled"
                 type="text"
                 label="Duration"
+                disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.duration}
@@ -178,6 +231,7 @@ const GoalUpdate = () => {
                 name="PlanLevel"
                 value={values.PlanLevel}
                 variant="filled"
+                disabled={loadingShow === "pending" ? true : false}
                 onChange={handleChange}
                 error={!!touched.PlanLevel && !!errors.PlanLevel}
                 helperText={touched.PlanLevel && errors.PlanLevel}
@@ -206,7 +260,7 @@ const GoalUpdate = () => {
                   })
                 )}
               </Select>
-              {newData.length > 0 && (
+              {(newData.length > 0) && (
                 <Paper
 
                   sx={{
@@ -220,10 +274,11 @@ const GoalUpdate = () => {
                   }}
                   component="ul"
                 >
-                  {newData}
+                  {loadingShow === "pending" ? 'loading...' : newData}
                 </Paper>
               )}
-              <div className="uploadfile" style={{ gridColumn: "span 4" }}>
+              <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
+                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
                 <label htmlFor="file" class="labelFile">
                   <span>
                     <CloudUploadIcon />
@@ -233,7 +288,6 @@ const GoalUpdate = () => {
                   </p>
                 </label>
                 <input
-
                   variant="filled"
                   id="file"
                   type="file"
@@ -245,7 +299,7 @@ const GoalUpdate = () => {
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading loading={loadingStore} error={error}>
+              <Loading loading={loadingStore} loadingShow={loadingShow} error={error}>
                 <Button
                   className={value === "dark" ? "newR dark" : "newR light"}
                   sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}

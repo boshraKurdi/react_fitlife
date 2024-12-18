@@ -8,12 +8,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 import PlanForGoal from "../../Components/PlanForGoal/PlanForGoal";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { SetOpen } from "../../../Redux/Mode/ModeSlice";
 import { ActStore } from "../../../Redux/MyGaol/MyGoalSlice";
+import { useSnackbar } from 'notistack';
 import ButtonLoading from "../../Components/Loading/ButtonLoading/ButtonLoading";
 const GoalDetails = () => {
     const { MyComponentTitle } = Components()
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const nav = useNavigate()
     
     const { goal , error , loading } = useSelector((state) => state.goal);
@@ -66,11 +67,11 @@ const GoalDetails = () => {
             e.preventDefault()
             !token
             ?
-            dispatch(SetOpen({message:'you must be login!' , type:'error'}))
+            enqueueSnackbar(`please login!`, { variant: "error" })
             :
             dispatch(ActStore(goal && goal.id)).unwrap().then(()=>{
               nav("/user");
-              dispatch(SetOpen({message:'Your journey have just started, one mill journey starts with one step 🤩🤩' , type:'success'}));
+              enqueueSnackbar(`Your journey have just started, one mill journey starts with one step 🤩🤩`, { variant: "success" });
              }).catch(()=>{})
             ;
           }} className="btn_start" disabled={((token && goal?.countAll) || (loadingStore === 'pending')) ? true : false}>Start Goal {loadingStore === 'pending' ? <ButtonLoading/> : <KeyboardDoubleArrowRightIcon />}</button>}

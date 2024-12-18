@@ -1,5 +1,5 @@
 import * as yup from "yup";
-export default function GymValidation(){
+export default function GymValidation(children){
 
   const checkoutSchema = yup.object().shape({
     name: yup.string().required("required"),
@@ -9,16 +9,16 @@ export default function GymValidation(){
     close: yup.string().required("required"),
     price: yup.string().required("required"),
     type: yup.string().required("required"),
-    media: yup.mixed().required("required")
 });
 const initialValues = {
-    name: "",
-    description: "",
-    description_ar: "",
-    open: "",
-    close: "",
-    price: '' ,
-    type: '' ,
+    name: children ? children.gym.name: '',
+    description: children ? children.gym.description: '',
+    description_ar: children ? children.gym.description_ar: '',
+    open: children ? children.gym.open: '',
+    close: children ? children.gym.close: '',
+    price: children ? children.gym.price: '' ,
+    address: children ? children.gym.address: '' ,
+    type: children ? children.gym.type: '' ,
     media: null
 };
 return {checkoutSchema , initialValues }

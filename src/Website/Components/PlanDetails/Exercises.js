@@ -2,8 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {ActExerciseIndex} from "../../../Redux/Plan/PlanSlice";
 import Stepper from "./Stepper/Stepper";
+import { useNavigate } from "react-router-dom";
 export default function Exercises({ setData, data }) {
   const { value } = useSelector((state) => state.mode);
+  const nav = useNavigate()
   const { exercises, loading } = useSelector((state) => state.plan);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,7 +17,7 @@ export default function Exercises({ setData, data }) {
         <span className={`${value}`}>
           <img src={data.media && data.media[0].original_url} alt="none" />
         </span>
-        <div>
+        <div className="exed" onClick={()=>{nav('/exerciseDetails/'+data.id)}}>
           <h4>{data.title}</h4>
           <p>{data.description}</p>
         </div>

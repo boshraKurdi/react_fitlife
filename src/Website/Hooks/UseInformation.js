@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import UseGetAddress from "./UseGetAddress";
 import { useDispatch, useSelector } from "react-redux";
 import { ActAuthUpdate } from "../../Redux/Auth/AuthSlice";
-import { SetOpen } from "../../Redux/Mode/ModeSlice";
+import { useSnackbar } from 'notistack';
 export default function UseInformation({setBox, state, setState, form, setForm}){
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const nav = useNavigate()
     const { getLatALon , location , stats , setStats } = UseGetAddress({form, setForm});
     const { error , loading } = useSelector((state) => state.auth)
@@ -37,7 +38,7 @@ export default function UseInformation({setBox, state, setState, form, setForm})
       if (!flag) {
         const promise = dispatch(ActAuthUpdate(form)).unwrap().then(()=>{
          nav("/user");
-         dispatch(SetOpen({message:'Hello in our website fitlife!' , type:'success'}));
+          enqueueSnackbar('Hello in our website fitlife!', { variant: "success" });
         }).catch(()=>{})
         return () => {
           promise.abort();

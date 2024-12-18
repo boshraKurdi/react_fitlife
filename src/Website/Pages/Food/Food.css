@@ -13,6 +13,80 @@
 .menu-toggle{
     display: none;
 }
+
+.menu-tab-wp {
+    margin-bottom: 80px;
+    margin-top: 3rem;
+}
+.menu-tab.dark ul{
+    background: var(--coquelicot);
+}
+.menu-tab.light ul{
+    background: linear-gradient(145deg, #ececec, #ffffff);
+    box-shadow: 28px 28px 55px #d4d4d4, -28px -28px 55px #ffffff;
+}
+.avg{
+    background: var(--coquelicot_20);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+}
+.avg p{
+    font-size: 1.4rem;
+    color: #fff;
+    font-family: monospace;
+}
+.save_food{
+    padding: 0.5rem 3rem;
+    background: var(--coquelicot);
+    color: #fff;
+    margin: 0 1rem;
+    font-family: monospace;
+    font-size: 1.4rem;
+    border-radius: 8px;
+}
+.save_food:hover{
+    background-color: var(--fc-button-hover-bg-color);
+}
+.menu-tab ul {
+    padding: 10px;
+    border-radius: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.menu-tab ul li, .menu-tab ul .filter-active {
+    display: inline-flex;
+    text-transform: capitalize;
+    font-size: 18px;
+    line-height: normal;
+    cursor: pointer;
+    padding: 10px 26px;
+    border-radius: 30px;
+    transition: 0.3s;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-active {
+    position: absolute;
+    left: 0;
+    display: none;
+    top: 12px;
+    min-height: 50px;
+    z-index: -1;
+}
+
+.menu-tab ul li img {
+    margin-right: 10px;
+    position: relative;
+    top: 1px;
+}
+
+
+.menu-list-row .bydefault_show .dish-box-wp {
+    display: inline-block !important;
+}
+
 .search{
     width: 160px;
     height: 40px;
@@ -21,6 +95,7 @@
     border-radius: 20px;
 
 }
+
 .search.dark{
     background: #eee;
 }
@@ -337,4 +412,48 @@ letter-spacing: 1.5;
     display: flex;
     z-index: 10;
 }
+}
+
+@media (max-width: 767px) {
+    .banner-img-wp {
+        height: 75vw;
+        min-height: 60vw;
+        width: auto;
+    }
+    .dist-img img {
+        width: 180px;
+    }
+    .dist-img {
+        margin-top: -80px;
+    }
+    .menu-tab-wp {
+        margin-bottom: 60px;
+    }
+    .dish-box {
+        margin: 80px 0 30px;
+    }
+    .book-table-img {
+        min-height: 340px;
+        height: 60vh;
+    }
+    .team-img {
+        height: 430px;
+    }
+    .dish-info ul li p {
+        font-size: 16px;
+        line-height: 26px;
+        margin: 0;
+    }
+    .dish-info ul li b {
+        font-size: 14px;
+    }
+    .brands-box {
+        padding: 0 25px;
+    }
+    .brands-row {
+        margin: 0 -25px;
+    }
+    .menu-tab ul li {
+        padding: 10px 20px;
+    }
 }

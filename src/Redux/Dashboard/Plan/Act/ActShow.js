@@ -5,7 +5,7 @@ const ActShow = createAsyncThunk(
     async (id , thunkAPI) => {
         const { rejectWithValue } = thunkAPI;
         try {
-            const response = await axios.get(`dashboard/plan/${id}/show`);
+            const response = await axios.get(`dashboard/plan/${id}/showPlan`);
             return response.data   
         } catch (error) {
             if (axios.isAxiosError(error)) {

@@ -4,6 +4,7 @@ import { ActStore } from "../../../Redux/Chat/ChatSlice";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { ActShow } from "../../../Redux/User/UserSlice";
+import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 export default function ProfileCoach() {
     const { value } = useSelector((state) => state.mode) 
     const { user , loading , error } = useSelector((state) => state.user)
@@ -17,52 +18,50 @@ export default function ProfileCoach() {
       dispatch(ActShow(id))
     } ,[dispatch , id])
   return (
+    <SkeletonLoading loading={loading} error={error} type="detailsGoal">
     <div className="about_section">
       <div className="about_coach">
         <img src={user.media && user.media[0].original_url} alt="none" className="about_img" />
         <div className="about_text">
           <h1>About {user?.name}</h1>
           <p className="p_profile_coach">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod amet
-            sapiente optio maiores, quos veritatis atque, laudantium id beatae
-            autem quaerat? Architecto, inventore! Ab?
+            {user?.description}
           </p>
-          {/* <h1>Skills</h1> */}
           <div className="skill">
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>UI UX DESIGN</p>
-            <p>90%</p>
+            <p>Performance Analysis</p>
+            <p>{user.analysis}%</p>
           </div>
           <div className="progress">
-            <span className="ui"></span>
+            <span style={{width:user? user.analysis+'%' : '0%'}} className="ui"></span>
           </div>
         </div>
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>MARKETING</p>
-            <p>80%</p>
+            <p>Communication and relationship</p>
+            <p>{user?.communication}%</p>
           </div>
           <div className="progress">
-            <span className="marketing"></span>
+            <span style={{width:user? user.communication+'%' : '0%'}} className="marketing"></span>
           </div>
         </div>
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>WEB DEVELOpMENT</p>
-            <p>75%</p>
+            <p>Education and guidance</p>
+            <p>{user?.education}%</p>
           </div>
           <div className="progress">
-            <span className="web"></span>
+            <span style={{width:user? user.education+'%': '0px'}} className="web"></span>
           </div>
         </div>
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>SEO</p>
-            <p>65%</p>
+            <p>Professional Development</p>
+            <p>{user.development}%</p>
           </div>
           <div className="progress">
-            <span className="seo"></span>
+            <span style={{width:user? user.development+'%' : '0%'}} className="seo"></span>
           </div>
         </div>
       </div>
@@ -77,5 +76,6 @@ export default function ProfileCoach() {
 
     
     </div>
+    </SkeletonLoading>
   );
 }

@@ -13,9 +13,9 @@ export default function Service() {
   useEffect(() => {
     dispatch(ActIndex());
   }, [dispatch]);
-  const newData = services.map((service) => {
+  const newData = Array.isArray(services) ? services.map((service) => {
     return <Content key={service.id} service={service} />;
-  });
+  }):'';
   return (
     <section className="section popular" id="className">
       <div className="container">

@@ -14,7 +14,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
           <div className={form.widthError !== "" && (form.width === "" || !regex.test(form.width)) ? "inputError login__box" : 'login__box'}>
             <WidthNormalIcon style={{color :form.widthError !== "" && (form.width === "" || !regex.test(form.width)) && '#e35858'}} className="bx bx-at login__icon" />
             <input
-              type="text"
+              type="number"
               name="width"
               value={form.width}
               onChange={(e) => {
@@ -41,7 +41,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
           <div className={form.heightError !== "" && (form.height === "" || !regex.test(form.height)) ? "inputError login__box" : 'login__box'}>
             <HeightIcon style={{color: form.heightError !== "" && (form.height === "" || !regex.test(form.height)) && '#e35858'}} className="bx bx-at login__icon" />
             <input
-              type="text"
+              type="number"
               name="height"
               value={form.height}
               onChange={(e) => {
