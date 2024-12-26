@@ -1,35 +1,50 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Heading from "../../../Components/Heading/Heading";
 import { useState } from "react";
 import SwiperComponent from "../../../Components/Swiper/SwiperComponent";
+import {ActStoreE} from "../../../../Redux/Target/TargetSlice";
+import { useSnackbar } from 'notistack';
 
-export default function Time({calories}){
+export default function Time({calories , plan_id , id}){
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
     const { value } = useSelector((state) => state.mode);
+    const { loadingE  } = useSelector((state) => state.target);
     const [ data ] = useState([
-        {title: '1 time' , calories:`${calories} calories burns`} ,
-        {title: '2 time' , calories:`${2*calories} calories burns`} ,
-        {title: '3 time' , calories:`${3*calories} calories burns`} ,
-        {title: '4 time' , calories:`${4*calories} calories burns`} ,
-        {title: '5 time' , calories:`${5*calories} calories burns`} ,
-        {title: '6 time' , calories:`${6*calories} calories burns`} ,
-        {title: '7 time' , calories:`${7*calories} calories burns`} ,
-        {title: '8 time' , calories:`${8*calories} calories burns`} ,
-        {title: '9 time' , calories:`${9*calories} calories burns`} ,
-        {title: '10 time' , calories:`${10*calories} calories burns`} ,
+        {title: '1 time' , calories:calories} ,
+        {title: '2 time' , calories:2*calories} ,
+        {title: '3 time' , calories:3*calories} ,
+        {title: '4 time' , calories:4*calories} ,
+        {title: '5 time' , calories:5*calories} ,
+        {title: '6 time' , calories:6*calories} ,
+        {title: '7 time' , calories:7*calories} ,
+        {title: '8 time' , calories:8*calories} ,
+        {title: '9 time' , calories:9*calories} ,
+        {title: '10 time' , calories:10*calories} ,
     ]) 
     const newData = data.map((d)=>{
         return(
             <div style={{width:'275px'}} className={`e_service__card ${value}`}>
             <h4>{d.title}</h4>
             <p>
-            {d.calories}
+            {d.calories} burns calories
             </p>
-            <span style={{borderRadius:'8px'}}>
-              save
+            <span onClick={()=>(
+                dispatch(ActStoreE({calories:d.calories , id:plan_id , check:id}))
+                .unwrap()
+                      .then(()=>{
+                        enqueueSnackbar(`Great work my friend, I wish you the best. ❤️😍`, { variant: 'success'});
+                      })
+                      .catch(()=>{
+                        enqueueSnackbar(`please try agen!`, { variant: 'error'});
+                      })
+            )} style={{borderRadius:'8px'}}>
+              {loadingE === 'pending' ? 'loading..'  : 'save'}
             </span>
           </div>
         )
     })
+   
     return(
         <section className="section__container e_service__container" id="e_service">
             <Heading title={'custome repetitions'} subTitle={'custome repetitions for exercise'} />

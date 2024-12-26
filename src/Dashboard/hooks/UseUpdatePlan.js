@@ -17,7 +17,7 @@ export default function UseUpdatePlan() {
     loadingShow,
   });
   useEffect(() => {
-    const newChipData =plan.levels && plan.levels.map((e) => ({
+    const newChipData =plan?.levels && plan.levels.map((e) => ({
       key: e.id,
       label: e?.title
     }));

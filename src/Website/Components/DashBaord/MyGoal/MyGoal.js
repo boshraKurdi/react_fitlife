@@ -16,10 +16,13 @@ const MyGoal = () => {
       dispatch(CleanUp());
     };
   }, [dispatch]);
-  const newMyGoal = myGoals.map((plan) => {
-    return <Content key={plan.id} plan={plan} />;
+  const newG = myGoals.filter((data)=>{
+    return data.totalRate !== 0
+  })
+  const newMyGoal = newG.map((plan) => {
+    return plan.totalRate !== 0 && <Content key={plan.id} plan={plan} />;
   });
-  console.log(myGoals[0]?.targets[0].rate)
+
   return (
     <>
     {
@@ -30,10 +33,10 @@ const MyGoal = () => {
       style={{ backgroundImage: `url(${Goal_1})` }}
     >
       <div className="container" style={{ position: "relative" }}>
-        <Heading title="My Plans" subTitle='Plans With Work Rate' />
+        <Heading title="My Plans" subTitle='Latest Plans'/>
         <ul className="class-list has-scrollbar">
           <SkeletonLoading loading={loading} error={error} type="plan">
-            {(myGoals.length > 0  && myGoals[0]?.targets[0].rate !== null) ? (
+            {(myGoals.length > 0) ? (
               <SwiperComponent data={newMyGoal} />
             ) : (
               <LottieFiles message="My Plan is empty" type="empty" />

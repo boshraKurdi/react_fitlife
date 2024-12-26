@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useDispatch, useSelector } from "react-redux";
 import { SetMode } from "../../../Redux/Mode/ModeSlice";
 import Components from "../../Style/Components/Components";
-import { useTheme } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
 import Profile from "../../Components/Profile/Profile";
+
 import { useState } from "react";
 export default function Header() {
   const [ open , setOpen ] = useState(false)
@@ -62,10 +63,10 @@ export default function Header() {
               </Link>
             </li> */}
             <li onClick={()=>{setOpen(false)}}>
-            <Select style={{display: 'flex' ,width: 'fit-content' , margin: 'auto'}} value={value} onChange={(event) => dispatch(SetMode(event.target.value))}>
-              <MenuItem style={{color:theme.palette.primary.title}} value="light">light</MenuItem>
-              <MenuItem style={{color:theme.palette.primary.title}} value="dark">dark</MenuItem>
-            </Select>
+            <IconButton>
+              {value === 'dark' ? <DarkModeIcon style={{fontSize:'2.2rem',cursor:'pointer'}} value={value} onClick={() => dispatch(SetMode('light'))} /> :
+              <LightModeIcon style={{fontSize:'2.2rem', cursor:'pointer'}} onClick={() => dispatch(SetMode('dark'))} />}
+              </IconButton>
             </li>
           </ul>
         </nav>

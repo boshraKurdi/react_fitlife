@@ -24,7 +24,7 @@ export default function UseUpdateGym() {
   const [chipData, setChipData] = useState([
   ]);
   useEffect(() => {
-    const newChipData = gym.section?.map((e) => ({
+    const newChipData = gym?.section && gym.section?.map((e) => ({
       key: e.id,
       label: e?.title
     }));

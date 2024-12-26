@@ -1,16 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const ActExerciseIndex = createAsyncThunk(
-    'Plan/ActExerciseIndex',
-    async (data , thunkAPI) => {
+const ActStoreE = createAsyncThunk(
+    'Target/ActStoreE',
+    async ({calories , id , check}, thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState();
+        const { auth } = getState()
         try {
-            const response = await axios.post(`plan/${data.id}/${data.day}/${data.week}/exercises`,{} ,{
+            const response = await axios.post(`target/storeExersice` , {calories:calories , plan_level_id:id , check:check} , {
                 headers: {
-                Authorization: 'Bearer ' + auth.token
-            }});
-            return response.data.data   
+                  Authorization: 'Bearer ' + auth.token
+              }
+              });
+            return response.data   
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   
@@ -20,4 +21,4 @@ const ActExerciseIndex = createAsyncThunk(
         }
     },
   )
-  export default ActExerciseIndex
+  export default ActStoreE

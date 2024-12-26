@@ -5,8 +5,7 @@ import { ActIndex, CleanUp } from "../../../../Redux/MyPlan/MyPlanSlice";
 import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 import SwiperComponent from "../../Swiper/SwiperComponent";
 import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
-const MyPlan = () => {
-  console.log("Myplan component");
+const MyPlan = () => {;
   const dispatch = useDispatch();
   const { myGoals } = useSelector((state) => state.myGoal);
   const { myPlans, loading, error } = useSelector((state) => state.myPlan);
@@ -16,7 +15,6 @@ const MyPlan = () => {
       dispatch(CleanUp());
     };
   }, [myGoals, dispatch]);
-  console.log(myPlans)
   const newRecorde =
   Array.isArray(myPlans) ? myPlans.map((plans) => {
           const newPlans = plans.map((planLevel) => {

@@ -34,10 +34,9 @@ const GymIndex = () => {
       flex: 1,
     },
     {
-        field: "location",
+        field: "address",
         headerName: "Location",
         flex: 1,
-        valueGetter: (value, gyms) => gyms.location.address,
     },
     {
         field: "section",

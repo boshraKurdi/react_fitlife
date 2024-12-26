@@ -10,10 +10,11 @@ import { useEffect } from "react";
 import { ActShow } from "../../../Redux/Exercise/ExerciseSlice";
 import { useParams } from "react-router-dom";
 import Time from "./Time/Time";
+
 export default function ExerciseDetails() {
   const { value } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
-  const { id } = useParams()
+  const { id , plan_id  } = useParams()
   const { loadingShow , error , exercise } = useSelector((state) => state.exercise);
   useEffect(()=>{
     dispatch(ActShow(id))
@@ -80,7 +81,7 @@ export default function ExerciseDetails() {
           </section>
         </div>
       </div>
-      <Time calories={exercise?.calories}/>
+      <Time id={id} plan_id={plan_id} calories={exercise?.calories}/>
       </SkeletonLoading>
   );
 }

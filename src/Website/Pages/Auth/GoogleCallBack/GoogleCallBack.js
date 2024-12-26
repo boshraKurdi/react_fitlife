@@ -5,11 +5,12 @@ import { GOOGLE_CALL_BACK } from "../../../../Api/Api";
 import Loading from "../../../Components/Loading/Loading";
 import { useDispatch } from "react-redux";
 import { SetAuth } from "../../../../Redux/Auth/AuthSlice";
-import { SetOpen } from "../../../../Redux/Mode/ModeSlice";
+import { useSnackbar } from 'notistack';
 export default function GoogleCallBack(){
     const dispatch = useDispatch()
     const location = useLocation()
     const nav = useNavigate()
+    const { enqueueSnackbar } = useSnackbar();
     useEffect(()=>{
         async function GoogleCall(){
             try {
@@ -17,7 +18,7 @@ export default function GoogleCallBack(){
                 dispatch(SetAuth({token :res.data.access_token , user:res.data.user }))
                 if (res.data.status === 'login') {
                    nav("/user");  
-                   dispatch(SetOpen({message:'login successfully!' , type:'success'}));
+                   enqueueSnackbar(`Login successfully!`, { variant: "success" });
                 }else{
                    nav("/information");
                 } 
@@ -26,6 +27,6 @@ export default function GoogleCallBack(){
             }
         }
         GoogleCall();
-    } , [location ,dispatch , nav])
+    } , [location ,dispatch , nav , enqueueSnackbar])
     return <Loading />
 }

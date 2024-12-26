@@ -26,6 +26,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
     "cookie-universal": "^2.2.2",
+    "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "leaflet": "^1.9.4",
     "lottie-react": "^2.4.0",

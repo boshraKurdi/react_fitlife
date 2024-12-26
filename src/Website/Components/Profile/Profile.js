@@ -111,7 +111,9 @@ export default function Profile() {
           </Link>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
-          <Avatar /> My account
+        <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/myProfile'>
+          <Avatar /> My profile 
+          </Link>
         </MenuItem>
         
         <Divider />

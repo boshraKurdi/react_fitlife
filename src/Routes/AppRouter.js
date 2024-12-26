@@ -64,6 +64,8 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
   ProfileCoach = lazy(()=> import('../Website/Pages/ProfileCoach/ProfileCoach')),
   DetailsFood = lazy(()=> import("../Website/Pages/DetailsFood/DetailsFood")),
   ExerciseDetails= lazy(()=> import("../Website/Pages/ExerciseDetails/ExerciseDetails")),
+  ProfileUser = lazy(()=> import("../Website/Pages/ProfileUser/ProfileUser")),
+   DashboardPlan = lazy(()=> import("../Website/Pages/DashboardPlan/DashboardPlan")),
   Chat = lazy(()=> import('../Website/Pages/Chat/Chat'));
 const router = createBrowserRouter([
   {
@@ -214,19 +216,6 @@ const router = createBrowserRouter([
         ]
   },
   {
-    path: '/services/chat/:id',
-    element:  <Suspense fallback={<Loading />}><Chat /></Suspense>,
-    loader : ({params}) =>{
-      if (!regex.test(params.id)) {
-        throw new Response("bad request" , {
-          statusText: "chat not found" ,
-          status: 400
-        })
-      }
-      return true;
-    }
-  },
-  {
     path: "/",
     element:  <Suspense fallback={<Loading />}><Main /></Suspense>,
     errorElement: <E404 />,
@@ -259,7 +248,20 @@ const router = createBrowserRouter([
           }
       },
       {
-        path: 'exerciseDetails/:id',
+        path: 'services/chat/:id',
+        element:  <Suspense fallback={<Loading />}><Chat /></Suspense>,
+        loader : ({params}) =>{
+          if (!regex.test(params.id)) {
+            throw new Response("bad request" , {
+              statusText: "chat not found" ,
+              status: 400
+            })
+          }
+          return true;
+        }
+      },
+      {
+        path: 'exerciseDetails/:id/:plan_id',
         element: <Suspense fallback={<Loading />}><ExerciseDetails /></Suspense>,
         loader : ({params}) =>{
           if (!regex.test(params.id)) {
@@ -271,6 +273,10 @@ const router = createBrowserRouter([
           return true;
         }
     },
+    {
+      path: 'myProfile',
+      element: <Suspense fallback={<Loading />}><ProfileUser /></Suspense>,
+  },
       {
         path: 'mealDetails/:id',
         element: <Suspense fallback={<Loading />}><DetailsFood /></Suspense>,
@@ -348,6 +354,19 @@ const router = createBrowserRouter([
           {
             path: 'planDetails/:id' ,
             element: <Suspense fallback={<Loading />}><PlanDetails /></Suspense>,
+            loader : ({params}) =>{
+              if (!regex.test(params.id)) {
+                throw new Response("bad request" , {
+                  statusText: "plan not found" ,
+                  status: 400
+                })
+              }
+              return true;
+            }
+          },
+          {
+            path: 'planDetails/:id/dashboard/:week' ,
+            element: <Suspense fallback={<Loading />}><DashboardPlan /></Suspense>,
             loader : ({params}) =>{
               if (!regex.test(params.id)) {
                 throw new Response("bad request" , {

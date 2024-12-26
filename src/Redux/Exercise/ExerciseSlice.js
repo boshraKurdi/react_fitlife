@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import ActIndex from './Act/ActIndex'
 import ActShow from './Act/ActShow'
-
 const initialState = {
   myExercise: [] ,
   exercise:{},
   loading: 'idle',
   loadingShow: 'idle' ,
+  loadingStore: 'idle' ,
   error:null
 }
 

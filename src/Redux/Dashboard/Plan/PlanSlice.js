@@ -69,7 +69,7 @@ export const planSlice = createSlice({
     })
     builder.addCase(ActExerciseIndex.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
-      state.exercises = action.payload[0].exercise
+      state.exercises = action.payload.exercise
     })
     builder.addCase(ActExerciseIndex.rejected , (state , action) => {
       state.loading = 'failed' 

@@ -32,7 +32,7 @@ export default function UseUpdateExercise() {
   const [chipData, setChipData] = useState([
   ]);
   useEffect(() => {
-    const newChipData = exercise.steps && exercise.steps.map((e) => ({
+    const newChipData = exercise?.steps && exercise.steps.map((e) => ({
       key: e.id,
       content: e.content,
       content_ar: e.content

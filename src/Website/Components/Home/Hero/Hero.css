@@ -45,6 +45,9 @@
 
 .hero .section-text {
   margin-block-end: 40px;
+  line-height: 1.5;
+  font-family: cursive;
+  color: var(--sonic-silver);
 }
 
 .hero .btn {

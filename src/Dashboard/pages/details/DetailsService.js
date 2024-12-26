@@ -16,7 +16,7 @@ const DetailsService = () => {
   const {service , loadingShow } = UseDetailsService()
   return (
     <Box m="20px">
-      <Header title="DETAILS MEAL" subtitle="Information Meal" />
+      <Header title="DETAILS SERVICE" subtitle="Information Service" />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (

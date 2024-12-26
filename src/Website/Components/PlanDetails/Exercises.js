@@ -1,34 +1,64 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import {ActExerciseIndex} from "../../../Redux/Plan/PlanSlice";
+import { memo, useEffect } from "react";
+import { ActExerciseIndex } from "../../../Redux/Plan/PlanSlice";
+import { format } from 'date-fns';
 import Stepper from "./Stepper/Stepper";
 import { useNavigate } from "react-router-dom";
-export default function Exercises({ setData, data }) {
+import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
+ const Exercises = memo(({ setData, data , myplan }) => {
   const { value } = useSelector((state) => state.mode);
-  const nav = useNavigate()
+  const nav = useNavigate();
   const { exercises, loading } = useSelector((state) => state.plan);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(ActExerciseIndex(data));
-  }, [dispatch, data]);
-  const newData = exercises && exercises[0]?.exercise?.map((data) => {
-    return (
-      <>
-        <span className={`${value}`}>
-          <img src={data.media && data.media[0].original_url} alt="none" />
-        </span>
-        <div className="exed" onClick={()=>{nav('/exerciseDetails/'+data.id)}}>
-          <h4>{data.title}</h4>
-          <p>{data.description}</p>
-        </div>
-      </>
+  const today = format(new Date(), 'yyyy-MM-dd');
+    const indexOfToday = myplan?.date && myplan?.date?.findIndex(
+      (date) => format(date.date, 'yyyy-MM-dd') === today
     );
-  });
-  
+  useEffect(() => {
+    dispatch(ActExerciseIndex(data)).unwrap().catch((error)=>{console.log(error)});
+  }, [dispatch, data , indexOfToday]);
+  console.log(exercises)
+  const newData =
+    exercises.exercise ?
+    exercises?.exercise.map((data) => {
+      return (
+        <div className="dd" key={data.id}>
+          <span key={data.id} className={`${value}`}>
+            <img src={data.media && data.media[0].original_url} alt="none" />
+          </span>
+          <div
+            className="exed"
+            onClick={() => {
+              nav(
+                "/exerciseDetails/" +
+                  data.id +
+                  "/" +
+                  exercises.id
+              );
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <h4>{data.title}</h4>
+              <p>{data.description}</p>
+              { 
+             myplan?.targets && myplan?.targets?.map((d)=>{
+                return (d.check === data?.id) &&  <FileDownloadDoneIcon key={d.id} style={{background:'green'}} className="chech_exe" />
+              })
+            } 
+            </div>
+          </div>
+        </div>
+      );
+    }):'';
+
   return (
-    <section style={{alignItems: 'flex-start'}} className="section__container why__container" id="blog">
+    <section
+      style={{ alignItems: "flex-start" }}
+      className="section__container why__container"
+      id="blog"
+    >
       <div className="why__image">
-        <Stepper setData={setData} data={data} />
+        <Stepper myplan={myplan} indexOfToday={indexOfToday} setData={setData} data={data} />
       </div>
       <div className="why__content">
         <h2 className="section__header">Exercises</h2>
@@ -43,4 +73,5 @@ export default function Exercises({ setData, data }) {
       </div>
     </section>
   );
-}
+})
+export default Exercises

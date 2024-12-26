@@ -1,6 +1,4 @@
-.footer {
-  font-size: var(--fs-6);
-}
+
 
 .footer-top .container {
   display: grid;
@@ -9,6 +7,10 @@
 
 .footer-brand-text {
   margin-block: 25px;
+  font-size: 1.3rem;
+  font-family: cursive;
+  transition: var(--transition-1);
+      color: var(--sonic-silver);
 }
 
 .footer-top .wrapper {
@@ -21,15 +23,25 @@
 .footer-brand-list li:not(:last-child) {
   margin-block-end: 15px;
 }
-
-.footer-brand-title,
-.footer-list-title {
-  font-family: var(--ff-catamaran);
+.footer .span{
+  font-size: var(--fs-3);
+    margin-left: .5rem;
 }
-
+.footer-brand-title {
+  /* font-family: var(--ff-catamaran); */
+  font-size: 1.3rem;
+  font-family: cursive;
+    letter-spacing: 1px;
+}
+.footer_p{
+  font-size: 1.3rem;
+  font-family: cursive;
+  transition: var(--transition-1);
+      color: var(--sonic-silver);
+}
 .footer-list-title {
-  font-size: var(--fs-4);
   font-weight: var(--fw-800);
+  font-size: var(--fs-3);
   margin-block-end: 28px;
 }
 
@@ -46,7 +58,10 @@
 
 .footer-link {
   flex: 1;
+  font-size: 1.3rem;
+  font-family: cursive;
   transition: var(--transition-1);
+      color: var(--sonic-silver);
 }
 
 .footer-link:not(.address):is(:hover, :focus) {
@@ -58,6 +73,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
+  font-size: 1.3rem;
 }
 
 .footer-list-item .icon {
@@ -91,7 +107,7 @@
   right: 5px;
   bottom: 5px;
   padding: 0;
-  font-size: 26px;
+  font-size: 20px;
   padding-inline: 12px;
 }
 
@@ -107,7 +123,6 @@
 }
 
 .social-link {
-  background-color: var(--white_20);
     color: var(--white);
     padding: 13px;
     width: 50px;
@@ -124,15 +139,22 @@
 }
 
 .footer-bottom {
-  background-color: var(--rich-black-fogra-29-2);
-  color: var(--white);
   text-align: center;
   padding-block: 15px;
+}
+.footer.dark .footer-bottom{
+  background-color: var(--rich-black-fogra-29-2);
+  color: var(--white);
+}
+.footer.light .footer-bottom{
+  background-color: var(--light-gray);
 }
 
 .copyright-link {
   display: inline-block;
-  color: var(--coquelicot);
+  color: var(--color-pu);
+  font-family: cursive;
+  font-size: 1.1rem;
 }
 
 .footer-bottom-list {

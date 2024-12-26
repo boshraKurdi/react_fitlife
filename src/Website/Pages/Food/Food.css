@@ -26,26 +26,39 @@
     box-shadow: 28px 28px 55px #d4d4d4, -28px -28px 55px #ffffff;
 }
 .avg{
-    background: var(--coquelicot_20);
+    background: rgba(255, 255, 255, 0.5);
     padding: 1rem 2rem;
     border-radius: 8px;
+    backdrop-filter: blur(48px);
 }
 .avg p{
     font-size: 1.4rem;
-    color: #fff;
+    color: var(--fc-button-active-bg-color);
     font-family: monospace;
+    margin-right: 1rem;
 }
 .save_food{
     padding: 0.5rem 3rem;
     background: var(--coquelicot);
     color: #fff;
-    margin: 0 1rem;
+    margin-right: 0.5rem;
+    font-family: monospace;
+    font-size: 1.4rem;
+    border-radius: 8px;
+}
+.update_food{
+    padding: 0.5rem 3rem;
+    background: #2c8f2c;
+    color: #fff;
     font-family: monospace;
     font-size: 1.4rem;
     border-radius: 8px;
 }
 .save_food:hover{
-    background-color: var(--fc-button-hover-bg-color);
+    opacity: 0.8;
+}
+.update_food:hover{
+    opacity: 0.8;
 }
 .menu-tab ul {
     padding: 10px;

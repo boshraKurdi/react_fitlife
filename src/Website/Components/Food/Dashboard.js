@@ -60,6 +60,7 @@ export default function Dashboard({ meals , id }) {
             })
             .catch()
           }} className='save_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? 'loading...' : "Save"}</button>
+           <button className='update_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? 'loading...' : "Update"}</button>
           </div>
         </div>
         <div className="highlight-wrapper">{newData}</div>

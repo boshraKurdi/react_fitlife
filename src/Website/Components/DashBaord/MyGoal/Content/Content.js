@@ -1,55 +1,60 @@
-import { SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
 import Components from "../../../../Style/Components/Components";
 import Level from "../../../Level/Level";
 
-const Content = ({ plan })=> {
+const Content = ({ plan }) => {
   const { MyComponentHeroSubtitleH3 } = Components();
-    return (
-      <SwiperSlide >
-        <li className="scrollbar-item">
-          <div className="class-card">
-            <figure className="card-banner img-holder">
-              <img
-                src={plan.plan && plan.plan.media[0].original_url}
-                width="416"
-                height="240"
-                loading="lazy"
-                alt="Cardio & Strenght"
-                className="img-cover"
-              />
-            </figure>
+  return (
+    <>
+      <li className="scrollbar-item">
+        <div className="class-card">
+          <figure className="card-banner img-holder">
+            <img
+              src={plan?.plan?.media[0] && plan.plan.media[0].original_url}
+              width="416"
+              height="240"
+              loading="lazy"
+              alt="Cardio & Strenght"
+              className="img-cover"
+            />
+          </figure>
 
-            <div className="card-content">
-              <div className="title-wrapper">
-                <Level num={plan.level && plan.level.id} />
+          <div className="card-content">
+            <div className="title-wrapper">
+              <Level num={plan.level && plan.level.id} />
 
-                <MyComponentHeroSubtitleH3 className="h3">
-                  <a href="index" className="card-title">
-                    {plan.plan && plan.plan.title}
-                  </a>
-                </MyComponentHeroSubtitleH3>
-              </div>
+              <MyComponentHeroSubtitleH3 className="h3">
+                <Link
+                  to={`/planDetails/${plan.id}`}
+                  className="card-title"
+                >
+                  {plan.plan && plan.plan.title}
+                </Link>
+              </MyComponentHeroSubtitleH3>
+            </div>
 
-              <p className="card-text">{plan.plan && plan.plan.description}</p>
+            <p className="card-text">{plan.plan && plan.plan.description}</p>
 
-              <div className="card-progress">
+            <div className="card-progress">
               <div className="progress-wrapper">
                 <p className="progress-label">Class Full</p>
 
-                <span className="progress-value">{plan.targets && plan.targets[0].rate}</span>
+                <span className="progress-value">
+                  {plan.totalRate + "%"}
+                </span>
               </div>
 
               <div className="progress-bg">
                 <div
                   className="progress-bar"
-                  style={{ width: `${plan.targets && plan.targets[0].rate}` }}
+                  style={{ width: `${plan.totalRate}%` }}
                 ></div>
               </div>
             </div>
-            </div>
           </div>
-        </li>
-      </SwiperSlide>
-    )
-}
-export default Content
+        </div>
+      </li>
+    </>
+  );
+};
+export default Content;

@@ -17,11 +17,11 @@ const DetailsGoal = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const {goal , loadingShow } = UseDetalisGoal()
-  const newData = goal.plan_level?.map((data) => {
+  const newData = goal?.plan_level ? goal.plan_level?.map((data) => {
     return(
       <CardContentDetails  title={data.plan.title} description={data.plan.description} img={data.plan.media && data.plan.media[0]?.original_url} />
     )
-  })
+  }) : ''
   return (
     <Box m="20px">
       <Header title="DETAILS GOAL" subtitle="Information Goal" />
@@ -146,7 +146,7 @@ const DetailsGoal = () => {
         </Card>
         <h1 style={{margin: '2rem 0 1rem 0 ', fontSize: '2.5rem'}}>Plans</h1>
         <section style={{display:'flex' , alignItems:'center' , justifyContent:'center' , width:'70vw' , margin:'auto'}}>
-        <SwiperComponent data={newData}/>
+        {goal?.plan_level && <SwiperComponent data={newData}/>}
         </section>
         </>
       )}

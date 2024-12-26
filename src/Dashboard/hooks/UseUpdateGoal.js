@@ -23,7 +23,7 @@ export default function UseUpdateGoal() {
   const [chipData, setChipData] = useState([
   ]);
   useEffect(() => {
-    const newChipData = goal.plan_level.map((e) => ({
+    const newChipData = goal?.plan_level && goal.plan_level.map((e) => ({
       key: e.id,
       label: e.plan?.title+' '+e.level?.title,
     }));

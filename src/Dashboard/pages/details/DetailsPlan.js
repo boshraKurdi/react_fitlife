@@ -23,7 +23,7 @@ const DetailsPlan = () => {
   
   return (
     <Box m="20px">
-      <Header title="DETAILS GOAL" subtitle="Information Goal" />
+      <Header title="DETAILS PLAN" subtitle="Information Plan" />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
