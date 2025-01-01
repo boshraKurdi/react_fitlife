@@ -48,7 +48,7 @@ const modePersistConfig = {
   key: 'mode',
   version: 1,
   storage,
-  whiteList: ['value']
+  whiteList: ['value' , 'data']
 }
 
 const rootReducer = combineReducers({

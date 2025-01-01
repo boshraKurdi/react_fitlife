@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import Stepper from "./Stepper/Stepper";
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
- const Exercises = memo(({ setData, data , myplan }) => {
+ const Exercises = memo(({ data , myplan , id }) => {
   const { value } = useSelector((state) => state.mode);
   const nav = useNavigate();
   const { exercises, loading } = useSelector((state) => state.plan);
@@ -15,8 +15,8 @@ import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
       (date) => format(date.date, 'yyyy-MM-dd') === today
     );
   useEffect(() => {
-    dispatch(ActExerciseIndex(data)).unwrap().catch((error)=>{console.log(error)});
-  }, [dispatch, data , indexOfToday]);
+    dispatch(ActExerciseIndex({data:data , id:id})).unwrap().catch((error)=>{console.log(error)});
+  }, [dispatch, data , indexOfToday , id]);
   console.log(exercises)
   const newData =
     exercises.exercise ?
@@ -58,7 +58,7 @@ import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
       id="blog"
     >
       <div className="why__image">
-        <Stepper myplan={myplan} indexOfToday={indexOfToday} setData={setData} data={data} />
+        <Stepper myplan={myplan} indexOfToday={indexOfToday} data={data} />
       </div>
       <div className="why__content">
         <h2 className="section__header">Exercises</h2>

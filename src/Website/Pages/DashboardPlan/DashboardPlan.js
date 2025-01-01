@@ -24,6 +24,7 @@ export default function DashboardPlan() {
         console.log("error");
       });
   }, [dispatch, id , type ]);
+  console.log(myplan?.arrDay)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -90,7 +91,7 @@ export default function DashboardPlan() {
                   <div style={{ width: "97%" }} className="col">
                     <div className="latest-activity">
                       <div style={{display:'flex' , alignItems:'center' , justifyContent:'space-between'}}>
-                        <h3 className="cardtittle">Latest activity meals</h3>
+                        <h3 className="cardtittle">Latest activity plan</h3>
                         <Button
                         className="btn_options"
                           id="demo-positioned-button"

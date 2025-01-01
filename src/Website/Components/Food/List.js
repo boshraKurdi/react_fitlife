@@ -1,6 +1,6 @@
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-export default function List({ chipData, setChipData, meals }) {
+export default function List({ calories , setCalories , check , setCheck , chipData, setChipData, meals }) {
   const { enqueueSnackbar } = useSnackbar();
   const nav = useNavigate()
   const newDta =
@@ -11,7 +11,7 @@ export default function List({ chipData, setChipData, meals }) {
         <div key={data.id} className="detail-card">
           <img
             className="detail-img"
-            src={data.media && data.media[0].original_url}
+            src={data?.media && data?.media[0]?.original_url}
             alt="none"
           />
           <div className="detail-desc">
@@ -25,12 +25,17 @@ export default function List({ chipData, setChipData, meals }) {
             onClick={() => {
               setChipData((prevChipData) => [
                 ...prevChipData,
-                {
-                  key: data.id,
-                  label: data?.title,
-                  contant: data.calories,
-                  img: data.media[0].original_url,
-                },
+                data
+              ]);
+              setCheck((prevCheck) => [
+                ...prevCheck,
+                data.id,
+                 
+              ]);
+              setCalories((prevCa) => [
+                ...prevCa,
+                data.calories,
+                 
               ]);
               enqueueSnackbar(`add ${data?.title} successfully!`, { variant: 'success'});
             }}

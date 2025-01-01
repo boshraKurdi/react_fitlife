@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 const Home = ({ myplan , loading , error , data }) => {
     const { MyComponentTitle } = Components()
     const { value } = useSelector((state) => state.mode);
-    
   return (
     <>
     <SkeletonLoading loading={loading} error={error} type="detailsGoal">
@@ -17,7 +16,7 @@ const Home = ({ myplan , loading , error , data }) => {
       <div className="product-imgs">
       <div style={{justifyContent:'center' , display:'flex'}} className="img-display">
             <div style={{width:'100%' , height:'400px'}} className="img-showcase">
-              <img style={{borderRadius:'50%' , width:'75%', minWidth:'400px' , objectFit:'contain'}} src={myplan?.plan?.media && myplan.plan.media[0].original_url} alt="shoe" />
+              <img style={{borderRadius:'50%' , width:'75%', minWidth:'400px' , objectFit:'contain'}} src={myplan?.media && myplan.media[0]?.original_url} alt="shoe" />
           </div>
         </div>
       </div>
@@ -33,19 +32,15 @@ const Home = ({ myplan , loading , error , data }) => {
           <ul>
             <li>
               <CheckCircleIcon />
-              myplan: <span>{myplan?.plan && myplan.plan.title}</span>
+              myplan: <span>{myplan?.title}</span>
             </li>
             <li>
               <CheckCircleIcon />
-              muscle: <span>{myplan?.plan && myplan.plan.muscle}</span>
+              muscle: <span>{myplan.muscle}</span>
             </li>
             <li>
               <CheckCircleIcon />
-              level: <span>{myplan?.level && myplan.level.title}</span>
-            </li>
-            <li>
-              <CheckCircleIcon />
-              duration: <span>{myplan && myplan.plan?.duration}</span>
+              duration: <span>{myplan?.duration}</span>
             </li>
             <li>
             <div style={{width: '100%'}} className="card-progress">
@@ -64,7 +59,7 @@ const Home = ({ myplan , loading , error , data }) => {
             </div>
             </li>
           </ul>
-          <Link to={'dashboard/'+data.week} className='btn_start'>show details <KeyboardDoubleArrowRightIcon/></Link>
+          <Link to={'dashboard/1'} className='btn_start'>show details <KeyboardDoubleArrowRightIcon/></Link>
         </div>
       </div>
     </div>

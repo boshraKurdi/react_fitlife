@@ -3,6 +3,7 @@ import ActIndex from './Act/ActIndex'
 import ActGetPlanForGoal from './Act/ActGetPlanForGoal'
 import ActExerciseIndex from './Act/ActExerciseIndex'
 import ActStore from './Act/ActStore'
+import ActGetSleep from './Act/ActGetSleep'
 
 const initialState = {
   plans: [] ,
@@ -10,6 +11,7 @@ const initialState = {
   plansForGoal: [] ,
   loading: 'idle',
   error:null ,
+  sleep: {},
   loadingStore: 'idle',
   errorStore:null ,
 }
@@ -87,10 +89,25 @@ export const planSlice = createSlice({
         state.errorStore = action.payload 
       }
     })
+    //sleep
+    builder.addCase(ActGetSleep.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActGetSleep.fulfilled , (state , action) => {
+      state.loading = 'succeeded'
+      state.sleep = action.payload
+    })
+    builder.addCase(ActGetSleep.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
    }
    
 })
 // Action creators are generated for each case reducer function
-export { ActIndex , ActGetPlanForGoal , ActExerciseIndex , ActStore } 
+export { ActIndex , ActGetPlanForGoal , ActExerciseIndex , ActStore , ActGetSleep } 
 export const { CleanUp , PlanForGoalCleanUp } = planSlice.actions
 export default planSlice.reducer

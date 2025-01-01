@@ -3,6 +3,7 @@ import ActGetMyGoal from './Act/ActGetMyGoal'
 import ActStore from './Act/ActStore'
 const initialState = {
   myGoals: [] ,
+  message: '',
   loading: 'idle',
   loadingStore : 'idle',
   error:null
@@ -26,7 +27,8 @@ export const myGoalSlice = createSlice({
     })
     builder.addCase(ActGetMyGoal.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
-      state.myGoals = action.payload
+      state.myGoals = action.payload.data
+      state.message = action.payload.message
     })
     builder.addCase(ActGetMyGoal.rejected , (state , action) => {
       state.loading = 'failed'

@@ -5,6 +5,7 @@ import ActShow from './Act/ActShow'
 const initialState = {
   meals: [] ,
   meal: {} ,
+  message: '',
   id:0,
   loadingShow : 'idle',
   loading: 'idle',
@@ -29,6 +30,7 @@ export const mealSlice = createSlice({
       state.loading = 'succeeded' 
       state.meals = action.payload.data
       state.id = action.payload.id
+      state.message = action.payload.message
     })
     builder.addCase(ActIndex.rejected , (state , action) => {
       state.loading = 'failed' 

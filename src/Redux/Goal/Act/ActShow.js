@@ -3,10 +3,10 @@ import axios from "axios";
 const ActShow = createAsyncThunk(
     'Goal/ActShow',
     async (id , thunkAPI) => {
-        const { rejectWithValue , signal , getState } = thunkAPI;
-        const { auth } = getState();
+        const { rejectWithValue , signal  } = thunkAPI;
+        // const { auth } = getState();
         try {
-            const response = await axios.get(`goal/${id}/show/${auth.user.id}` , {
+            const response = await axios.get(`goal/${id}/show` , {
                 signal: signal,
               });
             return response.data   

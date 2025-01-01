@@ -2,15 +2,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const ActIndex = createAsyncThunk(
     'Meal/ActIndex',
-    async (data , thunkAPI) => {
+    async ({time , data} , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
         const { auth } = getState();
         try {
             const response = await axios.post(`plan/${data.day}/${data.week}/meals`
               , {
-                'breakfast' : data.breakfast ,
-                'lunch': data.lunch ,
-                'dinner' : data.dinner
+                'breakfast' : time.breakfast ,
+                'lunch': time.lunch ,
+                'dinner' : time.dinner
               } , {
                 headers: {
                 Authorization: 'Bearer ' + auth.token

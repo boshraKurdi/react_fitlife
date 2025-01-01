@@ -10,7 +10,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ActDestroy ,ActExerciseIndex } from "../../Redux/Dashboard/Exercise/ExerciseSlice";
 import AddIcon from "@mui/icons-material/Add";
 import Table from "../components/Table";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 const Exercise = () => {
     const theme = useTheme();
     const nav = useNavigate()

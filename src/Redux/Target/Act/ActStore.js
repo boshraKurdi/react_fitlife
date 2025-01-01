@@ -2,11 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const ActStore = createAsyncThunk(
     'Target/ActStore',
-    async ({calories , id} , thunkAPI) => {
+    async ({calories , id , check , time} , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
         const { auth } = getState()
         try {
-            const response = await axios.post(`target/store`, {calories:calories , goal_plan_level_id:id} , {
+            const response = await axios.post(`target/store`, {time:time , calories:calories , plan_id:id , check:check} , {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }

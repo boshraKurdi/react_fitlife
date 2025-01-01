@@ -1,58 +1,59 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Stepper.css";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { memo, useEffect } from "react";
-
-const Stepper = memo(({ indexOfToday, data, setData , myplan }) => {
+import {SetData} from '../../../../Redux/Mode/ModeSlice'
+const Stepper = memo(({ indexOfToday }) => {
   const { value } = useSelector((state) => state.mode);
+  const dispatch = useDispatch();
   useEffect(() => {
     switch (indexOfToday) {
       case 0:
-        setData({ ...data, day: 1, week: 1 });
+        dispatch(SetData({day: 1, week: 1 }));
         break;
       case 1:
-        setData({ ...data, day: 2, week: 1 });
+        dispatch(SetData({day: 2, week: 1 }));
         break;
       case 2:
-        setData({ ...data, day: 3, week: 1 });
+        dispatch(SetData({day: 3, week: 1 }));
         break;
       case 3:
-        setData({ ...data, day: 4, week: 1 });
+        dispatch(SetData({day: 4, week: 1 }));
         break;
       case 4:
-        setData({ ...data, day: 5, week: 1 });
+        dispatch(SetData({day: 5, week: 1 }));
         break;
       case 5:
-        setData({ ...data, day: 6, week: 1 });
+        dispatch(SetData({day: 6, week: 1 }));
         break;
       case 6:
-        setData({ ...data, day: 7, week: 1 });
+        dispatch(SetData({day: 7, week: 1 }));
         break;
       case 7:
-        setData({ ...data, day: 1, week: 1 });
+        dispatch(SetData({day: 1, week: 2 }));
         break;
       case 8:
-        setData({ ...data, day: 2, week: 2 });
+        dispatch(SetData({day: 2, week: 2 }));
         break;
       case 9:
-        setData({ ...data, day: 3, week: 2 });
+        dispatch(SetData({day: 3, week: 2 }));
         break;
       case 10:
-        setData({ ...data, day: 4, week: 2 });
+        dispatch(SetData({day: 4, week: 2 }));
         break;
       case 11:
-        setData({ ...data, day: 5, week: 2 });
+        dispatch(SetData({day: 5, week: 2 }));
         break;
       case 12:
-        setData({ ...data, day: 6, week: 2 });
+        dispatch(SetData({day: 6, week: 2 }));
         break;
       case 13:
-        setData({ ...data, day: 7, week: 2 });
+        dispatch(SetData({day: 7, week: 2 }));
         break;
       default:
-        setData({ ...data, day: 1, week: 1 });
+        dispatch(SetData({day: 1, week: 1 }));
     }
-  }, [indexOfToday]);
+  }, [indexOfToday , dispatch]);
 
   return (
     <div className="timeline">

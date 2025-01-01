@@ -19,7 +19,7 @@ const UseLogin = () => {
 } = useForm({
     mode: "onBlur",
     resolver: zodResolver(LoginScema),
-});
+})
 // submit form login
 const onSubmit = async (data) => {
   

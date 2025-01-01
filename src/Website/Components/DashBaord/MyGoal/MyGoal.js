@@ -9,7 +9,7 @@ import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 import Heading from "../../Heading/Heading";
 const MyGoal = () => {
   const dispatch = useDispatch();
-  const { myGoals, loading, error } = useSelector((state) => state.myGoal);
+  const { myGoals, loading, error , message } = useSelector((state) => state.myGoal);
   useEffect(() => {
     dispatch(ActGetMyGoal());
     return () => {
@@ -39,7 +39,7 @@ const MyGoal = () => {
             {(myGoals.length > 0) ? (
               <SwiperComponent data={newMyGoal} />
             ) : (
-              <LottieFiles message="My Plan is empty" type="empty" />
+              <LottieFiles message={message} type="goal" />
             )}
           </SkeletonLoading>
         </ul>

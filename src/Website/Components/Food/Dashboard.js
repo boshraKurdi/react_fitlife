@@ -1,50 +1,59 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnackbar } from 'notistack';
 import Category from "./Category";
 import List from "./List";
 import CloseIcon from '@mui/icons-material/Close';
 import { ActStore } from "../../../Redux/Target/TargetSlice";
-export default function Dashboard({ meals , id }) {
+export default function Dashboard({ meals , id , open }) {
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar();
   const { value } = useSelector((state) => state.mode);
   const { loading } = useSelector((state) => state.target)
-  const [chipData, setChipData] = useState([
-    {
-      key: 0,
-      label: meals[0]?.meal[0].title,
-      contant: meals[0]?.meal[0].calories,
-      img: meals[0]?.meal[0]?.media[0].original_url,
-    },
-    {
-      key: 1,
-      label: meals[0]?.meal[1].title,
-      contant: meals[0]?.meal[1].calories,
-      img: meals[0]?.meal[1]?.media[0].original_url,
-    },
-  ]);
+  const [check , setCheck] = useState([]);
+  const [calories , setCalories] = useState([]);
+  const [chipData, setChipData] = useState([]);
   const totalCalories = chipData.reduce((accumulator, current) => {
-    return accumulator + current.contant;
+    return accumulator + current.calories;
   }, 0);
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
+      chips.filter((chip) => chip.id !== chipToDelete.id)
+    );
+    setCheck((checks) =>
+      checks.filter((check) => check !== chipToDelete.id)
+    );
+    setCalories((calories) =>
+      calories.filter((calorie) => calorie !== chipToDelete.calories)
     );
     enqueueSnackbar(`remove item successfully!`, { variant: 'error'});
   };
+ console.log(calories , check)
+  useEffect(() => {
+    const matchedRecords = meals[0]?.meal && meals[0]?.meal?.filter(item1 =>
+      meals[0]?.targets && meals[0]?.targets?.some(item2 => item2.check === item1.id)
+    );
+    
+    setChipData(matchedRecords);
+    const ids = matchedRecords.map(item => item.id);
+    setCheck(ids);
+    const calories = matchedRecords.map(item => item.calories);
+    setCalories(calories);
+  }, [meals]); 
   const newData = chipData.length > 0 && chipData.map((data) => {
     return (
       <div className={`highlight-card ${value}`}>
         <CloseIcon onClick={handleDelete(data)} className="icon_dashboard" />
-        <img className="highlight-img" src={data.img} alt="none" />
+        <img className="highlight-img" src={data.media[0].original_url} alt="none" />
         <div className="highlight-desc">
-          <h4>{data.label}</h4>
-          <p>{data.contant + " calories"}</p>
+          <h4>{data.title}</h4>
+          <p>{data.calories + " calories"}</p>
         </div>
       </div>
     );
   });
+  const time = open.breakfast ? 'breakfast' : open.lunch ? 'lunch' : open.dinner ? 'dinner' : 'snack';
+  console.log(time)
   return (
     <>
       <div className="main-highlight">
@@ -53,22 +62,21 @@ export default function Dashboard({ meals , id }) {
           <div className="avg" style={{display:'flex' , alignItems:'center'}}>
             <p>totle calories: {totalCalories}</p>
           <button onClick={()=>{
-            dispatch(ActStore({calories:totalCalories , id:id}))
+            dispatch(ActStore({calories:calories , id:id[0]?.id , check:check , time:time}))
             .unwrap()
             .then(()=>{
               enqueueSnackbar(`We wish you healthy food and a delicious meal ❤️😍`, { variant: 'success'});
             })
             .catch()
           }} className='save_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? 'loading...' : "Save"}</button>
-           <button className='update_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? 'loading...' : "Update"}</button>
           </div>
         </div>
         <div className="highlight-wrapper">{newData}</div>
       </div>
-      <div class={`main-menus ${value}`}>
+      <div className={`main-menus ${value}`}>
         <Category />
         <hr class="divider" />
-        <List chipData={chipData} setChipData={setChipData} meals={meals} />
+        <List calories={calories} setCalories={setCalories} check={check} setCheck={setCheck} chipData={chipData} setChipData={setChipData} meals={meals} />
       </div>
     </>
   );

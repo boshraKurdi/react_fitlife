@@ -9,18 +9,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ActShow } from '../../../Redux/MyPlan/MyPlanSlice'
 export default function PlanDetails(){
     const { id } = useParams();
-    const [ data , setData ] = useState({day:1 , week:1 , id:id})
-    const [type] = useState({one:'weekly' , two:data.week})
+    const [ type ] = useState({one:'weekly' , two:1})
+    const { data } = useSelector((state) => state.mode)
      const dispatch = useDispatch()
         const { myplan , error , loading } = useSelector((state) => state.myPlan)
         useEffect(()=>{
-          dispatch(ActShow({id:id , data:type})).unwrap().catch(()=>{console.log('error')})
-        } , [dispatch , id , type])
+          dispatch(ActShow({id:id , data:{one:'weekly' , two:data.week}})).unwrap().catch(()=>{console.log('error')})
+        } , [dispatch , id , type , data])
     return(
         <>
         <Home data={data} myplan={myplan} loading={loading} error={error} />
         <Tips />
-        <Exercises myplan={myplan} setData={setData} data={data} id={id} />
+        <Exercises myplan={myplan} data={data} id={id} />
         <LastExercises />
         </>
     )

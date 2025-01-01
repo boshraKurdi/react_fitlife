@@ -6,30 +6,31 @@ import "./Food.css";
 import { useEffect, useState } from "react";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 import LottieFiles from "../../Components/Loading/LottieLoading/LottieFiles";
+import Water from "../../Components/Food/Water/Water";
 export default function Food() {
+  const { data } = useSelector((state) => state.mode)
   const [open, setOpen] = useState({
     breakfast: true,
     lunch: false,
     dinner: false,
     snack: false,
-    day: 1,
-    week: 1,
   });
-  const { meals , id , loading, error } = useSelector((state) => state.meal);
+  const { meals , id , loading, error , message } = useSelector((state) => state.meal);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ActIndex(open));
-  }, [dispatch, open]);
+    dispatch(ActIndex({time:open , data:data}));
+  }, [dispatch, open , data]);
   return (
     <div style={{ marginTop: "8rem" }} class="main">
       <Search open={open} setOpen={setOpen} />
-       {Array.isArray(meals) ? <>
+       {meals.length ? <>
           <SkeletonLoading loading={loading} error={error} type="meal">
-            <Dashboard meals={meals} id={id} />
+            <Dashboard open={open} meals={meals} id={id} />
+            <Water />
           </SkeletonLoading>
         </>:<LottieFiles
-          type="error"
-          message={"please wait to processing the goal"}
+          type="goal"
+          message={message}
         />}
     </div>
   );

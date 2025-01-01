@@ -6,6 +6,7 @@ import ActShow from './Act/ActShow'
 const initialState = {
   myPlans: [] ,
   myplan: {},
+  message:'',
   loading: 'idle',
   error:null
 }
@@ -43,7 +44,8 @@ export const myPlanSlice = createSlice({
     })
     builder.addCase(ActShow.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
-      state.myplan = action.payload
+      state.myplan = action.payload.data
+      state.message = action.payload.message
     })
     builder.addCase(ActShow.rejected , (state , action) => {
       state.loading = 'failed' 

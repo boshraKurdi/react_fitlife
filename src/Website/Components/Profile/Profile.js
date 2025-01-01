@@ -18,12 +18,19 @@ import { ActAuthLogout } from '../../../Redux/Auth/AuthSlice';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import ButtonLoading from '../Loading/ButtonLoading/ButtonLoading';
 import { Link, useNavigate } from 'react-router-dom';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+// import { useEffect } from 'react';
+// import { ActGetMyGoal } from '../../../Redux/MyGaol/MyGoalSlice';
 export default function Profile() {
   const dispatch = useDispatch();
   const { loading , error } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const nav = useNavigate()
+  // const { myGoals } = useSelector((state) => state.myGoal);
+  // useEffect(()=>{
+  //   dispatch(ActGetMyGoal())
+  // }, [dispatch])
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -90,6 +97,9 @@ export default function Profile() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        {/* {
+          myGoals.length > 0 &&
+          <> */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/user'>
             <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> My Plans
@@ -100,6 +110,13 @@ export default function Profile() {
             <Avatar><RestaurantMenuIcon style={{fontSize: '2rem'}} /></Avatar> My Menu
           </Link>
         </MenuItem>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+         <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/sleep'>
+            <Avatar><BedtimeIcon style={{fontSize: '2rem'}} /></Avatar> Sleep
+          </Link>
+        </MenuItem>
+        {/* </>
+         } */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
         <Link style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/gym'>
             <Avatar><FitnessCenterIcon style={{fontSize: '2rem'}} /></Avatar> Gym

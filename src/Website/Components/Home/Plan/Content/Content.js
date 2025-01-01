@@ -1,5 +1,3 @@
-import Level from "../../../Level/Level";
-
 export default function Content({ plan }) {
   return (
     <li className="scrollbar-item">
@@ -23,7 +21,6 @@ export default function Content({ plan }) {
               {plan.plan.title}
             </a>
           </h3>
-          <Level num={plan.level_id} />
 
           <p className="card-text">{plan.plan.description}</p>
 

@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import ActStore from './Act/ActStore'
 import ActStoreE from './Act/ActStoreE'
+import ActStoreSleep from './Act/ActStoreSleep'
+import ActStoreWater from './Act/ActStoreWater'
 
 
 const initialState = {
@@ -50,10 +52,39 @@ export const targetSlice = createSlice({
       }
     })
 
+    //sleep
+    builder.addCase(ActStoreSleep.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActStoreSleep.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+    })
+    builder.addCase(ActStoreSleep.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
+    //water
+    builder.addCase(ActStoreWater.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActStoreWater.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+    })
+    builder.addCase(ActStoreWater.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
+
    }
    
 })
 // Action creators are generated for each case reducer function
-export { ActStore , ActStoreE } 
+export { ActStore , ActStoreE , ActStoreSleep , ActStoreWater } 
 export const { CleanUp  } = targetSlice.actions
 export default targetSlice.reducer

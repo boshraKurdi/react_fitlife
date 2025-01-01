@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Components from "../../../../Style/Components/Components";
-import Level from "../../../Level/Level";
 
 const Content = ({ plan }) => {
   const { MyComponentHeroSubtitleH3 } = Components();
@@ -10,7 +9,7 @@ const Content = ({ plan }) => {
         <div className="class-card">
           <figure className="card-banner img-holder">
             <img
-              src={plan?.plan?.media[0] && plan.plan.media[0].original_url}
+              src={plan?.media[0] && plan.media[0].original_url}
               width="416"
               height="240"
               loading="lazy"
@@ -21,26 +20,25 @@ const Content = ({ plan }) => {
 
           <div className="card-content">
             <div className="title-wrapper">
-              <Level num={plan.level && plan.level.id} />
 
               <MyComponentHeroSubtitleH3 className="h3">
                 <Link
                   to={`/planDetails/${plan.id}`}
                   className="card-title"
                 >
-                  {plan.plan && plan.plan.title}
+                  {plan?.title}
                 </Link>
               </MyComponentHeroSubtitleH3>
             </div>
 
-            <p className="card-text">{plan.plan && plan.plan.description}</p>
+            <p className="card-text">{plan.description}</p>
 
             <div className="card-progress">
               <div className="progress-wrapper">
                 <p className="progress-label">Class Full</p>
 
                 <span className="progress-value">
-                  {plan.totalRate + "%"}
+                  {plan?.totalRate + "%"}
                 </span>
               </div>
 

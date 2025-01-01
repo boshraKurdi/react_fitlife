@@ -6,7 +6,7 @@ const ActStoreE = createAsyncThunk(
         const { rejectWithValue , getState } = thunkAPI;
         const { auth } = getState()
         try {
-            const response = await axios.post(`target/storeExersice` , {calories:calories , plan_level_id:id , check:check} , {
+            const response = await axios.post(`target/storeExersice` , {calories:calories , plan_id:id , check:check} , {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }
